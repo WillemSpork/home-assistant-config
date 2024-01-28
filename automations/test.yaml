@@ -1,4 +1,4 @@
-# Test voor verschillende notify kanalen
+# Before I add automations, I first test them here
 
 - alias: "Test: notify groups"
   trigger:

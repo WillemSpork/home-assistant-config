@@ -51,6 +51,10 @@
             <td>2</td>
         </tr>
         <tr>
+            <td>ESP32 Module</td>
+            <td>3</td>
+        </tr>
+        <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

@@ -50,3 +50,9 @@
     data:
       title: "Security"
       message: "The front door has been open for more than 5 minutes."
+      data:
+        push:
+          sound:
+            name: default
+            critical: 1
+            volume: 1.0

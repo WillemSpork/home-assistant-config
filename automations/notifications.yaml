@@ -1,0 +1,99 @@
+# Locationbased notifications
+- alias: "Work: Willem left work notification for Nina"
+  trigger:
+    platform: state
+    entity_id: person.willem_spork
+    from: 'Blendle'
+  condition:
+    condition: time
+    after: '15:00:00'
+    before: '18:00:00'
+  action:
+    service: notify.all_iphones
+    data:
+      title: "Work"
+      message: "Willem vertrekt van Blendle! ♥️🎉"
+
+- alias: "Work: Nina left work notification for Willem"
+  trigger:
+    platform: state
+    entity_id: person.nina_juffermans
+    from: 'Blendle'
+  condition:
+    condition: time
+    after: '15:00:00'
+    before: '18:00:00'
+  action:
+    service: notify.all_iphones
+    data:
+      title: "Work"
+      message: "Nina vertrekt van Blendle! ♥️🎉"
+
+- alias: "School: Willem left school notification for Nina"
+  trigger:
+    platform: state
+    entity_id: person.willem_spork
+    from: 'School'
+  condition:
+    condition: time
+    after: '09:00:00'
+    before: '18:00:00'
+  action:
+    service: notify.all_iphones
+    data:
+      title: "School"
+      message: "Willem vertrekt van School! ♥️🎉"
+
+- alias: "Notifications: front door has opened"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.voordeur_deur
+    to: "on"
+  condition:
+    condition: state
+    entity_id: input_boolean.front_door_open_warning
+    state: "on"
+  action:
+    - service: notify.willem
+      data:
+        title: Security
+        message: Front door opened!
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.front_door_open_warning
+
+- alias: "Notifications: Hourly Mantra Notification"
+  trigger:
+    - platform: time_pattern
+      hours: "/1"
+  condition:
+    - "{{ not is_state('input_select.sleep_mode', 'total') }}"
+  action:
+    - service: notify.nina
+      data:
+        title: "Hourly Mantra ❤️"
+        message: >
+          {% set mantras = [
+            "Ik ben een mooie vrouw",
+            "Ik hoef mezelf niet te bewijzen",
+            "Ik ben geliefd",
+            "Ik ben het waard",
+            "Ik ben goed genoeg",
+            "Ik ben een goede moeder",
+            "Ik rock mijn carrière en fitnessdoelen met dezelfde passie",
+            "Sterk is het nieuwe sexy, en ik ben beide",
+            "Mijn energie en drive maken me onstuitbaar op werk en in de sportschool",
+            "Elke dag is een nieuwe kans om te shinen, zowel in mijn job als in mijn workout",
+            "Ik balanceer werk en fun alsof het niets is",
+            "Mijn lichaam is mijn tempel, en ik behandel het als een koningin",
+            "Zelfvertrouwen is mijn superkracht, zowel in vergaderingen als tijdens yoga",
+            "Ik ben de baas over mijn gezondheid en mijn carrièrepad",
+            "Mijn motivatie is net zo sterk als mijn koffie",
+            "Ik flirt met succes en het flirt terug",
+            "Elke zweetdruppel tijdens de training telt als een stap naar succes",
+            "Ik ben mijn eigen cheerleader, in de sportschool en op mijn werk",
+            "Mijn glimlach is mijn krachtigste accessoire, altijd en overal",
+            "Ik vier elk klein succesje, want ik weet dat ze optellen",
+            "Mijn leven is mijn avontuur, vol passie en nieuwe kansen"
+          ] %}
+          {% set mantra = mantras | random %}
+          {{ mantra }}

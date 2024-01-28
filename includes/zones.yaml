@@ -1,0 +1,29 @@
+# - name: Home
+#   latitude: !secret latitude_home
+#   longitude: !secret longitude_home
+#   radius: 100
+#   icon: mdi:home
+
+- name: Schiedam
+  latitude: !secret latitude_schiedam
+  longitude: !secret longitude_schiedam
+  radius: 1250
+  icon: mdi:home-plus
+
+- name: Purmerend
+  latitude: !secret latitude_purmerend
+  longitude: !secret longitude_purmerend
+  radius: 1250
+  icon: mdi:home-plus
+
+- name: Blendle
+  latitude: !secret latitude_blendle
+  longitude: !secret longitude_blendle
+  radius: 30
+  icon: mdi:office-building
+
+- name: School
+  latitude: !secret latitude_school
+  longitude: !secret longitude_school
+  radius: 300
+  icon: mdi:school

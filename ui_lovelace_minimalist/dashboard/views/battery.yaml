@@ -1,0 +1,125 @@
+title: "Batterijen"
+path: battery
+icon: "mdi:battery-medium"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+      ulm_chip_back_path: /ui-lovelace-minimalist/home
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Apparaten
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.iphone_van_nina_juffermans_2_battery_level
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.iphone_van_nina_juffermans_2_battery_level
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
+        ulm_card_battery_name: Nina's iPhone
+        ulm_card_battery_charging_animation: true
+        ulm_card_battery_battery_state_entity_id: sensor.iphone_van_nina_juffermans_2_battery_state
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.willems_iphone_battery_level
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.willems_iphone_battery_level
+        ulm_card_battery_battery_level_danger: 30
+        ulm_card_battery_battery_level_warning: 80
+        ulm_card_battery_name: Willem's iPhone
+        ulm_card_battery_charging_animation: true
+        ulm_card_battery_battery_state_entity_id: sensor.willems_iphone_battery_state
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Sensoren
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.gang_sensor_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.gang_sensor_battery
+        ulm_card_battery_battery_level_danger: 10
+        ulm_card_battery_battery_level_warning: 20
+        ulm_card_battery_name: Motion Sensor Gang
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.keuken_sensor_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.keuken_sensor_battery
+        ulm_card_battery_battery_level_danger: 10
+        ulm_card_battery_battery_level_warning: 20
+        ulm_card_battery_name: Wall Switch Inloopkast
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Schakelaars
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.inloopkast_switch_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.inloopkast_switch_battery
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Motion Sensor Keuken
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.switch_slaapkamer_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.switch_slaapkamer_battery
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Hue Switch Slaapkamer
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.kitchen_button_battery
+      variables:
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Keuken knopje
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.switch_woonkamer_battery
+      variables:
+        ulm_card_battery_charger_type_entity_id: sensor.switch_woonkamer_battery
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Hue Switch Woonkamer
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.voordeur_batterij
+      variables:
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Voordeur
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.inloopkast_switch_battery
+      variables:
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Switch inloopkast
+    - type: 'custom:button-card'
+      template: card_battery
+      entity: sensor.achterdeur_batterij
+      variables:
+        ulm_card_battery_battery_level_danger: 20
+        ulm_card_battery_battery_level_warning: 30
+        ulm_card_battery_name: Achterdeur

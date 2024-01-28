@@ -1,0 +1,169 @@
+#  __          ___ _ _                   _____                  _    
+#  \ \        / (_) | |                 / ____|                | |   
+#   \ \  /\  / / _| | | ___ _ __ ___   | (___  _ __   ___  _ __| | __
+#    \ \/  \/ / | | | |/ _ \ '_ ` _ \   \___ \| '_ \ / _ \| '__| |/ /
+#     \  /\  /  | | | |  __/ | | | | |  ____) | |_) | (_) | |  |   < 
+#      \/  \/   |_|_|_|\___|_| |_| |_| |_____/| .__/ \___/|_|  |_|\_\
+#                                             | |                    
+#                                             |_|                    
+
+#  _____                    _       _
+# |_   _|__ _ __ ___  _ __ | | __ _| |_ ___    ___  ___ _ __  ___  ___  _ __ ___
+#   | |/ _ \ '_ ` _ \| '_ \| |/ _` | __/ _ \  / __|/ _ \ '_ \/ __|/ _ \| '__/ __|
+#   | |  __/ | | | | | |_) | | (_| | ||  __/  \__ \  __/ | | \__ \ (_) | |  \__ \
+#   |_|\___|_| |_| |_| .__/|_|\__,_|\__\___|  |___/\___|_| |_|___/\___/|_|  |___/
+#                    |_|
+
+- platform: template
+  sensors:
+    
+    average_temperature_hallway:
+      friendly_name: "Gemiddelde Temperatuur Gang"
+      unit_of_measurement: "°C"
+      value_template: >
+        {% set keuken = states('sensor.keuken_sensor_temperature') | float %}
+        {% set gang = states('sensor.gang_sensor_temperature') | float %}
+        {{ ((keuken + gang) / 2) | round(1, default=0) }}
+    
+    average_temperature_living:
+      friendly_name: "Gemiddelde Temperatuur Woonkamer"
+      unit_of_measurement: "°C"
+      value_template: >
+        {% set kantoor = states('sensor.kantoor_temperatuur') | float %}
+        {% set woonkamer = states('sensor.woonkamer_temperatuur') | float %}
+        {{ ((kantoor + woonkamer) / 2) | round(1, default=0) }}
+
+    average_temperature:
+      friendly_name: "Gemiddelde Temperatuur"
+      unit_of_measurement: "°C"
+      value_template: >
+        {% set kantoor = states('sensor.kantoor_temperatuur') | float %}
+        {% set woonkamer = states('sensor.woonkamer_temperatuur') | float %}
+        {% set keuken = states('sensor.keuken_sensor_temperature') | float %}
+        {% set gang = states('sensor.gang_sensor_temperature') | float %}
+        {{ ((kantoor + woonkamer + keuken + gang) / 4) | round(1, default=0) }}
+
+    any_lights_on:
+      friendly_name: "Aantal Lampen Aan"
+      unit_of_measurement: "lampen"
+      value_template: >
+        {{ states.light | selectattr('state', 'eq', 'on') | list | count }}
+
+    tado_slaapkamer_temperatuur:
+      friendly_name: "Slaapkamer Temperatuur"
+      unit_of_measurement: '°C'
+      value_template: "{{ state_attr('climate.slaapkamer', 'current_temperature') }}"
+
+
+#ESPprecense > Willem
+
+- platform: mqtt_room
+  device_id: "willem_s_iphone"
+  name: 'iphone_willem_ble'
+  state_topic: 'espresense/devices/willem_s_iphone'
+  timeout: 5
+  away_timeout: 120
+
+#ESPprecense > Nina
+
+- platform: mqtt_room
+  device_id: "nina_s_iphone"
+  name: 'iphone_nina_ble'
+  state_topic: 'espresense/devices/nina_s_iphone'
+  timeout: 5
+  away_timeout: 120
+
+# OvAPI
+
+- platform: ovapi
+  name: Bus_12
+  stop_code: utrkoe
+  route_code: 50000880
+  line_filter: 12
+  show_future_departures: 4
+
+- platform: ovapi
+  name: Bus_28
+  stop_code: utrkoe
+  route_code: 50000880
+  line_filter: 28
+  show_future_departures: 4
+
+# FlightRadar24 Feeder
+
+- platform: rest
+  name: FR24 Feeder
+  resource: !secret flightradar_resource_ip
+  value_template: '{{ value_json.feed_alias }}'
+  method: GET
+  scan_interval: 60
+  json_attributes:
+    - rx_connected
+    - feed_status
+    - d11_map_size
+    - feed_num_ac_tracked
+    - build_version
+    - feed_alias
+    - feed_num_ac_adsb_tracked
+    - feed_num_ac_non_adsb_tracked
+    - mlat-ok
+    - mlat-number-seen
+- platform: template
+  sensors:
+    fr24_feeder_radar_code:
+      friendly_name: Radar Code
+      value_template: '{{ states.sensor.fr24_feeder.attributes["feed_alias"] }}'
+    fr24_feeder_aircraft_tracked:
+      friendly_name: Aircraft Tracked
+      value_template: '{{ states.sensor.fr24_feeder.attributes["d11_map_size"] | round(0) }}'
+      unit_of_measurement: 'aircraft'
+    fr24_feeder_aircraft_uploaded:
+      friendly_name: Total Aircraft Uploaded
+      value_template: '{{ states.sensor.fr24_feeder.attributes["feed_num_ac_tracked"] | round(0) }}'
+      unit_of_measurement: 'aircraft'
+    fr24_feeder_version:
+      friendly_name: Version
+      value_template: '{{ states.sensor.fr24_feeder.attributes["build_version"] }}'
+    feed_num_ac_adsb_tracked:
+      friendly_name: ADSB Tracked
+      value_template: '{{ states.sensor.fr24_feeder.attributes["feed_num_ac_adsb_tracked"] | round(0) }}'
+      unit_of_measurement: 'aircraft'     
+    feed_num_ac_non_adsb_tracked:
+      friendly_name: NON-ADSB Tracked
+      value_template: '{{ states.sensor.fr24_feeder.attributes["feed_num_ac_non_adsb_tracked"] | round(0) }}'
+      unit_of_measurement: 'aircraft'    
+    mlat_ok:
+      friendly_name: MLAT Status
+      value_template: '{{ states.sensor.fr24_feeder.attributes["mlat-ok"] }}'            
+    mlat_number_seen:
+      friendly_name: MLAT number seen
+      value_template: '{{ states.sensor.fr24_feeder.attributes["mlat-number-seen"] | round(0) }}'
+      unit_of_measurement: 'aircraft'
+
+#Fitbit
+- platform: fitbit
+  clock_format: 12H
+  monitored_resources:
+    - "body/weight"
+    - "body/bmi"
+    - "body/fat"
+
+#   ___  _   _
+#  / _ \| |_| |__   ___ _ __ ___
+# | | | | __| '_ \ / _ \ '__/ __|
+# | |_| | |_| | | |  __/ |  \__ \
+#  \___/ \__|_| |_|\___|_|  |___/
+#
+
+- platform: statistics
+  name: Humidity bathroom stats
+  entity_id: sensor.0x54ef44100091b4d9_temperature
+  sampling_size: 86400 # make sure all data points of the last 24hrs are included
+  max_age: "24:00:00"
+  state_characteristic: mean
+
+- platform: derivative
+  source: sensor.0x54ef44100091b4d9_temperature
+  name: Humidity bathroom derivative
+  unit_time: min
+  time_window: "00:10:00"

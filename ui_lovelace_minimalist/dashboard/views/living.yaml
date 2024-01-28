@@ -1,0 +1,135 @@
+title: "Woonkamer"
+path: living
+icon: "mdi:sofa"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+      ulm_chip_back_path: /ui-lovelace-minimalist/home
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_graph
+      entity: sensor.woonkamer_temperatuur
+      variables:
+        ulm_card_graph_color: "var(--google-red)"
+        ulm_card_graph_name: Temperatuur
+        ulm_card_graph_entity: sensor.woonkamer_temperatuur
+        ulm_card_graph_type: fill
+        ulm_card_graph_hours: 24
+        ulm_card_graph_group_by: interval
+        ulm_card_graph_line_width: 3
+    - type: 'custom:button-card'
+      template: card_graph
+      entity: sensor.woonkamer_luchtvochtigheid
+      variables:
+        ulm_card_graph_color: "var(--google-blue)"
+        ulm_card_graph_name: Luchtvochtigheid
+        ulm_card_graph_entity: sensor.woonkamer_luchtvochtigheid
+        ulm_card_graph_type: fill
+        ulm_card_graph_hours: 24
+        ulm_card_graph_group_by: interval
+        ulm_card_graph_line_width: 3
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Lichten
+
+  - type: horizontal-stack
+    cards:
+    - type: "custom:button-card"
+      template: card_light
+      entity: light.convectorput
+      variables:
+        ulm_card_light_enable_slider: true
+        ulm_card_light_enable_color: true
+        ulm_card_light_enable_collapse: true
+        ulm_card_light_force_background_color: true
+        ulm_card_light_icon: "mdi:window-open-variant"
+    - type: "custom:button-card"
+      template: card_light
+      entity: light.plafondlamp
+      variables:
+        ulm_card_light_enable_slider: true
+        ulm_card_light_enable_color: true
+        ulm_card_light_enable_collapse: true
+        ulm_card_light_force_background_color: true
+        ulm_card_light_icon: "mdi:wall-sconce-flat"
+  - type: horizontal-stack
+    cards:
+    - type: "custom:button-card"
+      template: card_light
+      entity: light.sfeerlamp_woonkamer
+      variables:
+        ulm_card_light_enable_slider: true
+        ulm_card_light_enable_color: true
+        ulm_card_light_enable_collapse: true
+        ulm_card_light_force_background_color: true
+        ulm_card_light_icon: "mdi:wall-sconce-flat"
+    - type: 'custom:button-card'
+      template: card_generic
+      entity: input_boolean.coocking_mode
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Klimaat
+
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: card_thermostat
+        entity: climate.woonkamer
+        variables:
+          ulm_card_thermostat_enable_collapse: true
+          ulm_card_thermostat_enable_controls: true
+          ulm_card_thermostat_enable_hvac_modes: false
+          ulm_card_thermostat_enable_popup: true
+          ulm_card_thermostat_name: "Thermostaat"
+      - type: "custom:button-card"
+        template: card_fan
+        entity: fan.slaapkamer
+        variables:
+          ulm_card_fan_name: "Ventilator"
+          ulm_card_fan_enable_slider: false
+          ulm_card_fan_color: "blue"
+          ulm_card_fan_force_background_color: true
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Media
+
+  - type: horizontal-stack
+    cards:
+    - type: "custom:button-card"
+      template: card_media_player
+      entity: media_player.woonkamer
+      variables:
+        ulm_card_media_player_name : Apple TV
+        ulm_card_media_player_icon: "mdi:apple"
+        ulm_card_media_player_power_button: true
+    - type: "custom:button-card"
+      template: card_media_player
+      entity: media_player.sonos
+      variables:
+        ulm_card_media_player_name : Sonos
+        ulm_card_media_player_icon: "mdi:cast-audio"
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Adaptieve verlichting
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_input_boolean
+      entity: switch.adaptive_lighting_living_room
+      variables:
+        ulm_card_input_boolean_name: Adaptieve verlichting
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: switch.adaptive_lighting_sleep_mode_living_room
+        variables:
+          ulm_card_input_boolean_name: Nacht modus

@@ -1,0 +1,75 @@
+- platform: template
+  sensors:
+
+# Motion, activity & precense detection
+
+    # Whole house
+    
+    someone_showering:
+      friendly_name: Someone is showering
+      value_template: >
+        {% set humidity = states("sensor.humidity_bathroom") | float(0) %}
+        {% set treshold = 1.05 * state_attr("sensor.humidity_bathroom_stats", "median") | float(0) %}
+        {% set derivative = states("sensor.humidity_bathroom_derivative") | float(0) %}
+        {{ humidity > treshold and derivative > 0.25 }}
+    
+    motion_detected:
+      friendly_name: Any motion detected
+      value_template: >
+        {{ is_state("binary_sensor.gang_sensor_motion", "on")
+            or is_state("binary_sensor.keuken_sensor_motion", "on") }}
+
+    motion_detected_in_last_hour:
+      friendly_name: Any motion detected in last hour
+      value_template: >
+        {{ is_state("binary_sensor.motion_detected", "on") }}
+      delay_off: "01:00:00"
+
+    someone_in_the_house_in_last_hour:
+      friendly_name: Someone in the house in last hour
+      value_template: >
+        {{ is_state("motion_detected_in_last_hour", "on") or is_state("group.persons", "home") }}
+
+    # Rooms and areas
+
+    activity_in_kitchen:
+      friendly_name: Activity in the kitchen
+      value_template: >
+        {{ is_state("binary_sensor.keuken_sensor_motion", "on")
+            or is_state("binary_sensor.achterdeur_deur", "on") }}
+      delay_off: "00:02:00"
+      icon_template: "mdi:motion-sensor{{ iif(is_state('binary_sensor.activity_in_kitchen', 'off'), '-off', '') }}"
+
+    activity_in_hallway:
+      friendly_name: Activity in the hallway
+      value_template: >
+        {{ is_state("binary_sensor.gang_sensor_motion", "on") or is_state ("binary_sensor.voordeur_deur", "on")}}
+      delay_off: "00:02:00"
+      icon_template: "mdi:motion-sensor{{ iif(is_state('binary_sensor.activity_in_hallway', 'off'), '-off', '') }}"
+
+    activity_in_living:
+      friendly_name: Activity in the living room
+      value_template: >
+        {{ not is_state("media_player.woonkamer", "standby") }}
+      delay_off: "00:20:00"
+      icon_template: "mdi:television{{ iif(is_state('binary_sensor.activity_in_living', 'off'), '-off', '') }}"
+
+    # Precense
+
+    no_one_home:
+      friendly_name: No one is home
+      value_template: >
+        {{ not is_state("person.willem_spork", "home") and not is_state("person.nina_juffermans", "home") }}
+
+# Custom intergrations    
+    
+    # FlightRadar24 Feeder
+
+    fr24_feeder_receiver_connected:
+      friendly_name: Receiver Connected
+      value_template: '{{ is_state_attr("sensor.fr24_feeder", "rx_connected", "1") }}'
+      device_class: connectivity
+    fr24_feeder_link_connected:
+      friendly_name: Link Connected
+      value_template: '{{ is_state_attr("sensor.fr24_feeder", "feed_status", "connected") }}'
+      device_class: connectivity

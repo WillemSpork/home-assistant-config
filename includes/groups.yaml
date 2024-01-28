@@ -1,0 +1,47 @@
+persons:
+  name: People
+  entities:
+    - person.willem_spork
+    - person.nina_juffermans
+
+ihpone_nina:
+  - binary_sensor.iphone_van_nina_juffermans_2_focus
+  - sensor.iphone_van_nina_juffermans_2_activity
+  - sensor.iphone_van_nina_juffermans_2_average_active_pace
+  - sensor.iphone_van_nina_juffermans_2_battery_level
+  - sensor.iphone_van_nina_juffermans_2_battery_state
+  - sensor.iphone_van_nina_juffermans_2_bssid
+  - sensor.iphone_van_nina_juffermans_2_connection_type
+  - sensor.iphone_van_nina_juffermans_2_distance
+  - sensor.iphone_van_nina_juffermans_2_floors_ascended
+  - sensor.iphone_van_nina_juffermans_2_floors_descended
+  - sensor.iphone_van_nina_juffermans_2_geocoded_location
+  - sensor.iphone_van_nina_juffermans_2_last_update_trigger
+  - sensor.iphone_van_nina_juffermans_2_sim_1
+  - sensor.iphone_van_nina_juffermans_2_sim_2
+  - sensor.iphone_van_nina_juffermans_2_ssid
+  - sensor.iphone_van_nina_juffermans_2_steps
+  - sensor.iphone_van_nina_juffermans_2_storage
+  - device_tracker.iphone_van_nina_juffermans_2
+  - device_tracker.iphone_van_nina_juffermans_2_router
+
+ihpone_willem:
+  - binary_sensor.willems_iphone_focus
+  - sensor.willems_iphone_activity
+  - sensor.willems_iphone_average_active_pace
+  - sensor.willems_iphone_battery_level
+  - sensor.willems_iphone_battery_state
+  - sensor.willems_iphone_bssid
+  - sensor.willems_iphone_connection_type
+  - sensor.willems_iphone_distance
+  - sensor.willems_iphone_floors_ascended
+  - sensor.willems_iphone_floors_descended
+  - sensor.willems_iphone_geocoded_location
+  - sensor.willems_iphone_last_update_trigger
+  - sensor.willems_iphone_sim_1
+  - sensor.willems_iphone_sim_2
+  - sensor.willems_iphone_ssid
+  - sensor.willems_iphone_steps
+  - sensor.willems_iphone_storage
+  - device_tracker.willems_iphone
+  - device_tracker.willems_iphone_router

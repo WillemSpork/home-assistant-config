@@ -1,0 +1,21 @@
+# Test voor verschillende notify kanalen
+
+- alias: "Test: notify groups"
+  trigger:
+    platform: state
+    entity_id: input_boolean.test_mode
+    to: "on"
+  action:
+    - service: notify.willem
+      data:
+        title: Test
+        message: Willem voert een test uit.
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.test_mode
+    - service: tts.google_say
+      data:
+        cache: false
+        entity_id:
+        - media_player.slaapkamer_2
+        - media_player.slaapkamer
+        message: Willem voert een test uit!

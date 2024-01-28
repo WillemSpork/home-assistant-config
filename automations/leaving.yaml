@@ -1,0 +1,9 @@
+- alias: "Leaving: when everybody leaves the house turn off all lights"
+  trigger:
+    - platform: state
+      entity_id: all
+      to: "not_home"
+  action:
+    - service: light.turn_off
+      target:
+        entity_id: all

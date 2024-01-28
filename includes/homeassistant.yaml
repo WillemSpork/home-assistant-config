@@ -1,0 +1,23 @@
+latitude: !secret latitude_home
+longitude: !secret longitude_home
+
+elevation: 4
+unit_system: metric
+legacy_templates: false
+country: NL
+time_zone: Europe/Paris
+name: Home
+
+#Configuration for the FR24 Feeder component
+customize:
+  sensor.fr24_feeder:
+    hidden: true
+  sensor.fr24_feeder_aircraft_tracked:
+    icon: mdi:airplane
+  sensor.fr24_feeder_aircraft_uploaded:
+    icon: mdi:airplane
+  sensor.fr24_feeder_radar_code:
+    icon: mdi:radar
+#Custom icon automations
+  automation.security_motion_detected_but_we_are_not_home:
+    icon: mdi:alarm-light

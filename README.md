@@ -1,0 +1,1 @@
+# My personal Home Assistan config files 🏠🤖

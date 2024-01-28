@@ -1,0 +1,80 @@
+title: "Inloopkast"
+path: wardrobe
+icon: "mdi:hanger"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+      ulm_chip_back_path: /ui-lovelace-minimalist/home
+
+  - type: horizontal-stack
+    cards:
+    - type: 'custom:button-card'
+      template: card_graph
+      entity: sensor.inloopkast_temperatuur
+      variables:
+        ulm_card_graph_color: "var(--google-red)"
+        ulm_card_graph_name: Temperatuur
+        ulm_card_graph_entity: sensor.woonkamer_temperatuur
+        ulm_card_graph_type: fill
+        ulm_card_graph_hours: 24
+        ulm_card_graph_group_by: interval
+        ulm_card_graph_line_width: 3
+    - type: 'custom:button-card'
+      template: card_graph
+      entity: sensor.inloopkast_luchtvochtigheid
+      variables:
+        ulm_card_graph_color: "var(--google-blue)"
+        ulm_card_graph_name: Luchtvochtigheid
+        ulm_card_graph_entity: sensor.woonkamer_luchtvochtigheid
+        ulm_card_graph_type: fill
+        ulm_card_graph_hours: 24
+        ulm_card_graph_group_by: interval
+        ulm_card_graph_line_width: 3
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Lichten
+
+  - type: horizontal-stack
+    cards:
+    - type: "custom:button-card"
+      template: card_light
+      entity: light.inloopkast
+      variables:
+        ulm_card_light_enable_slider: true
+        ulm_card_light_enable_color: true
+        ulm_card_light_enable_collapse: true
+        ulm_card_light_force_background_color: true
+        ulm_card_light_icon: "mdi:window-open-variant"
+
+  - type: 'custom:button-card'
+    template: card_title
+    name: Apparaten
+
+  - type: custom:timer-bar-card
+    entities:
+    - entity: sensor.wasmachine_washer_machine_state
+      name: Wasmachine
+      waiting_state: Stop
+      active_state: run
+      icon: mdi:washing-machine-off
+      active_icon: mdi:washing-machine
+      end_time:
+        entity: sensor.wasmachine_washer_completion_time
+      translations:
+        stop: Klaar!
+      text_width: 4em
+      bar_width: calc(70% - 10em)
+    - entity: sensor.droger_dryer_machine_state
+      name: Droger
+      waiting_state: Stop
+      active_state: run
+      icon: mdi:tumble-dryer-off
+      active_icon: mdi:tumble-dryer
+      end_time:
+        entity: sensor.droger_dryer_completion_time
+      translations:
+        stop: Klaar!
+      text_width: 4em
+      bar_width: calc(70% - 10em)

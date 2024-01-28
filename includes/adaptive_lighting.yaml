@@ -1,0 +1,79 @@
+- name: Living room
+  lights:
+    - light.plafondlamp
+    - light.convectorput
+    - light.sfeerlamp_woonkamer
+  min_brightness: 30
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  separate_turn_on_commands: true
+  skip_redundant_commands: true
+  # interval: 20
+  # transition: 5
+  autoreset_control_seconds: 0
+  adapt_only_on_bare_turn_on: true
+  take_over_control: false
+  sleep_brightness: 1
+  sleep_color_temp: 1000
+  sleep_brightness: 20
+  sleep_transition: 10
+
+- name: Office
+  lights:
+    - light.kantoor
+  min_brightness: 30
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  separate_turn_on_commands: true
+  skip_redundant_commands: true
+  interval: 20
+  transition: 5
+  autoreset_control_seconds: 300
+  adapt_only_on_bare_turn_on: true
+  sleep_brightness: 20
+  sleep_transition: 10
+
+- name: Hallway
+  lights:
+    - light.gang
+  min_brightness: 15
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  separate_turn_on_commands: true
+  skip_redundant_commands: true
+  interval: 20
+  transition: 5
+  autoreset_control_seconds: 300
+  adapt_only_on_bare_turn_on: true
+
+- name: Kitchen
+  lights:
+    - light.keuken
+  min_brightness: 30
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  separate_turn_on_commands: true
+  skip_redundant_commands: true
+  interval: 20
+  transition: 5
+  autoreset_control_seconds: 300
+  adapt_only_on_bare_turn_on: true
+
+- name: Bedroom
+  lights:
+    - light.slaapkamer_lampen
+  min_brightness: 30
+  prefer_rgb_color: true
+  detect_non_ha_changes: true
+  separate_turn_on_commands: true
+  skip_redundant_commands: true
+  interval: 20
+  transition: 5
+  autoreset_control_seconds: 300
+  adapt_only_on_bare_turn_on: true
+
+# Will never out this instance to sleep mode
+- name: Wardrobe
+  lights:
+  - light.inloopkast
+  min_brightness: 80

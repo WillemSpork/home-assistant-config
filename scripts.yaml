@@ -1,0 +1,38 @@
+# Set candle light effect on multiple lights
+
+set_candle_light:
+  alias: "Set Candle Light Effect"
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - light.bureaulamp
+          - light.bollamp
+          - light.kantoor_plafond
+        effect: "candle"
+        brightness: 150
+        color_temp: 454
+
+# Plays 'LoFi-girl' on YouTube
+play_youtube_video:
+  sequence:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: media_player.woonkamer
+              state: 'standby'
+          sequence:
+            - service: media_player.turn_on
+              target:
+                entity_id: media_player.woonkamer
+      default: []
+    - service: media_player.play_media
+      data:
+        media_content_type: url
+        media_content_id: youtube://www.youtube.com/watch?v=jfKfPfyJRdk
+      target:
+        entity_id: media_player.woonkamer
+    - service: media_player.volume_set
+      data:
+        entity_id: media_player.sonos
+        volume_level: 0.05

@@ -1,0 +1,52 @@
+- alias: "Security: motion detected but we are not home"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_detected
+    from: "off"
+    to: "on"
+  condition:
+    - condition: state
+      entity_id: group.persons
+      state: not_home
+  action:
+    - service: notify.willem
+      data:
+        title: "Security"
+        message: "Security: motion is detected, but we are not home. 🚨"
+        data:
+          push:
+            sound:
+              name: "default"
+              critical: 1
+              volume: 1.0
+          actions:
+            - action: SOUND_ALARM
+              title: Sound alarm
+              activationMode: background
+              authenticationRequired: true
+              destructive: true
+    - wait_for_trigger:
+        platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: SOUND_ALARM
+      timeout: "01:00:00"
+      continue_on_timeout: false
+    - service: light.turn_on
+      entity_id: all
+      data:
+        flash: long
+        color_name: red
+
+- alias: "Security: front door has been open for more than 5 minutes"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.voordeur_deur
+    from: "off"
+    to: "on"
+    for: "00:05:00"
+  action:
+    service: notify.all_iphones
+    data:
+      title: "Security"
+      message: "The front door has been open for more than 5 minutes."

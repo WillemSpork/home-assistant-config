@@ -1,0 +1,38 @@
+# Ignore folders
+.storage
+.cloud
+backups
+blueprints
+deps
+image
+tts
+
+# Django stuff:
+*.log
+*.log.1
+*log.fault
+local_settings.py
+db.sqlite3
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
+known_devices.yaml
+secrets.yaml
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Others
+home-assistant_v2.db
+home-assistant_v2.db-shm
+home-assistant_v2.db-wal
+home-assistant_v2.dblog
+zigbee.db
+scenes.yaml
+fitbit.conf

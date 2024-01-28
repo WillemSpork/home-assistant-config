@@ -143,3 +143,7 @@
         </tr>
     </tbody>
 </table>
+
+## Thanks to
+
+Many thanks to [@BasNijholt](https://github.com/basnijholt) for being an amazing inspiration in my setup and structeration.

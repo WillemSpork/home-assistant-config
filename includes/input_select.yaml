@@ -7,6 +7,8 @@
 #              | |           ______                           
 #              |_|          |______|                          
 
+# Radio station selecter for office
+
 radio_station:
   options:
     - Radio uit

@@ -2,3 +2,13 @@ portainer:
   title: Portainer
   icon: mdi:docker
   url: !secret portainer_url
+
+bedroom:
+  title: ESP Bedroom
+  icon: mdi:bed-empty
+  url: http://192.168.178.61/
+
+office:
+  title: ESP Office
+  icon: mdi:desktop-classic
+  url: http://192.168.178.171/

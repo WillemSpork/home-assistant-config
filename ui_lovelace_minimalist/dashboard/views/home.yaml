@@ -37,6 +37,22 @@ cards:
             name: Lab
             color: "red"
 
+    # Room presense chips
+      - type: horizontal-stack
+        cards:
+        - type: 'custom:button-card'
+          template: chip_icon_state
+          variables:
+            ulm_chip_icon_state_icon: '🙎🏼‍♀️'
+            ulm_chip_icon_state_entity: sensor.iphone_nina_ble
+
+        - type: 'custom:button-card'
+          template: chip_icon_state
+          variables:
+            ulm_chip_icon_state_icon: '🙎🏼'
+            ulm_chip_icon_state_entity: sensor.iphone_willem_ble
+
+
     # Person cards
 
       - type: horizontal-stack

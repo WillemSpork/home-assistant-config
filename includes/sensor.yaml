@@ -55,7 +55,7 @@
       value_template: "{{ state_attr('climate.slaapkamer', 'current_temperature') }}"
 
 
-#ESPprecense > Willem
+#ESPprecense > Willem (Phone)
 
 - platform: mqtt_room
   device_id: "willem_s_iphone"
@@ -64,7 +64,7 @@
   timeout: 5
   away_timeout: 120
 
-#ESPprecense > Nina
+#ESPprecense > Nina (Phone)
 
 - platform: mqtt_room
   device_id: "nina_s_iphone"

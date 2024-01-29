@@ -132,3 +132,28 @@
   action:
   - service: light.turn_off
     entity_id: light.inloopkast
+
+#   ____           _                           
+#  |  _ \         | |                          
+#  | |_) | ___  __| |_ __ ___   ___  _ __ ___  
+#  |  _ < / _ \/ _` | '__/ _ \ / _ \| '_ ` _ \ 
+#  | |_) |  __/ (_| | | | (_) | (_) | | | | | |
+#  |____/ \___|\__,_|_|  \___/ \___/|_| |_| |_|
+                                             
+- alias: "Lights: turn on bedroom"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.someone_in_bedroom
+      to: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.slaapkamer
+
+- alias: "Lights: turn off bedroom"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.someone_in_bedroom
+      to: 'off'
+  action:
+    - service: light.turn_off
+      entity_id: light.slaapkamer

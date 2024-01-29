@@ -30,6 +30,11 @@
       value_template: >
         {{ is_state("motion_detected_in_last_hour", "on") or is_state("group.persons", "home") }}
 
+    someone_in_bedroom:
+      friendly_name: Someone in the bedroom
+      value_template: >
+        {{ is_state("sensor.iphone_willem_ble", "slaapkamer") or is_state("sensor.iphone_nina_ble", "slaapkamer") }}
+
     # Rooms and areas
 
     activity_in_kitchen:

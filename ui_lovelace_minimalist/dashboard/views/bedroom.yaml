@@ -11,7 +11,7 @@ cards:
     cards:
     - type: 'custom:button-card'
       template: card_graph
-      entity: sensor.kantoor_temperatuur
+      entity: sensor.tado_slaapkamer_temperatuur
       variables:
         ulm_card_graph_color: "var(--google-red)"
         ulm_card_graph_name: Temperatuur

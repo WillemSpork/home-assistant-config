@@ -129,6 +129,10 @@
     to: 'off'
     for:
       minutes: 12
+  condition:
+    - condition: state
+      entity_id: light.inloopkast
+      state: 'on'
   action:
   - service: light.turn_off
     entity_id: light.inloopkast

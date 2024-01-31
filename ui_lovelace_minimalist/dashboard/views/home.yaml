@@ -65,6 +65,8 @@ cards:
             ulm_card_person_use_entity_picture: true
             ulm_card_person_icon: mdi:face-man
             ulm_card_person_battery: sensor.willems_iphone_battery_level
+            ulm_card_person_zone1: zone.schiedam
+            ulm_card_person_zone2: zone.blendle
         - type: 'custom:button-card'
           template: card_person
           entity: person.nina_juffermans
@@ -173,9 +175,9 @@ cards:
               tap_action:
                 action: toggle
             entity_2:
-              entity_id: fan.woonkamer
+              entity_id: fan.huiskamer
               templates:
-                - red_on
+                - blue_on
               tap_action:
                 action: toggle
             entity_3:

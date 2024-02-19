@@ -148,6 +148,14 @@
     </tbody>
 </table>
 
+## Todo
+
+- Fix: lights in office won't respond to 'turn off' automations
+- Fix: Host (Intel NUC) needs a restart job every night
+- Add: ESP32 and pressure sensors in bed for sleepmode ([link](https://www.homeautomationguy.io/blog/making-my-own-bed-sensor))
+- Add: Reset states (sleepmode, etc) every night
+
+
 ## Thanks to
 
 Many thanks to [@BasNijholt](https://github.com/basnijholt) for being an amazing inspiration in my setup and structeration.

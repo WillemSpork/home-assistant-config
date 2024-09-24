@@ -3,46 +3,31 @@
   trigger:
     platform: state
     entity_id: person.willem_spork
-    from: 'Blendle'
+    from: 'Office'
   condition:
     condition: time
     after: '15:00:00'
-    before: '18:00:00'
+    before: '23:00:00'
   action:
     service: notify.all_iphones
     data:
       title: "Work"
-      message: "Willem vertrekt van Blendle! ♥️🎉"
+      message: "Willem vertrekt van kantoor! ♥️🎉"
 
 - alias: "Work: Nina left work notification for Willem"
   trigger:
     platform: state
     entity_id: person.nina_juffermans
-    from: 'Blendle'
+    from: 'Office'
   condition:
     condition: time
     after: '15:00:00'
-    before: '18:00:00'
+    before: '23:00:00'
   action:
     service: notify.all_iphones
     data:
       title: "Work"
-      message: "Nina vertrekt van Blendle! ♥️🎉"
-
-- alias: "School: Willem left school notification for Nina"
-  trigger:
-    platform: state
-    entity_id: person.willem_spork
-    from: 'School'
-  condition:
-    condition: time
-    after: '09:00:00'
-    before: '18:00:00'
-  action:
-    service: notify.all_iphones
-    data:
-      title: "School"
-      message: "Willem vertrekt van School! ♥️🎉"
+      message: "Nina vertrekt van kantoor! ♥️🎉"
 
 - alias: "Notifications: front door has opened"
   trigger:
@@ -61,7 +46,7 @@
     - service: input_boolean.turn_off
       entity_id: input_boolean.front_door_open_warning
 
-- alias: "Notifications: Hourly Mantra Notification"
+- alias: "Notifications: Hourly Mantra Notification for Nina"
   trigger:
     - platform: time_pattern
       hours: "/1"
@@ -93,7 +78,67 @@
             "Ik ben mijn eigen cheerleader, in de sportschool en op mijn werk",
             "Mijn glimlach is mijn krachtigste accessoire, altijd en overal",
             "Ik vier elk klein succesje, want ik weet dat ze optellen",
-            "Mijn leven is mijn avontuur, vol passie en nieuwe kansen"
+            "Mijn leven is mijn avontuur, vol passie en nieuwe kansen",
+            "Ik ben de architect van mijn eigen geluk",
+            "Ik verwelkom groei en verandering met een open hart",
+            "Mijn innerlijke vrede is onaantastbaar",
+            "Ik laat los wat ik niet kan veranderen",
+            "Ik kies ervoor om vandaag vreugde te vinden in kleine dingen",
+            "Ik ben dankbaar voor de liefde die ik geef en ontvang",
+            "Mijn potentieel is onbegrensd",
+            "Ik vertrouw op mijn intuïtie en wijsheid",
+            "Elke uitdaging is een kans om te groeien",
+            "Ik verdien rust en herstel",
+            "Ik ben een bron van licht en liefde",
+            "Mijn woorden en daden zijn doordrenkt met vriendelijkheid",
+            "Ik sta sterk in mijn authenticiteit",
+            "Mijn hart is open voor nieuwe mogelijkheden",
+            "Ik ben een katalysator voor positieve verandering",
+            "Ik erken mijn eigenwaarde en schoonheid",
+            "Mijn reis is uniek en waardevol",
+            "Ik kies voor gezonde grenzen in al mijn relaties",
+            "Ik vier mijn persoonlijke overwinningen, groot en klein",
+            "Mijn geluk is een reflectie van mijn innerlijke harmonie",
+            "Mijn sensualiteit is mijn kracht",
+            "Ik geniet van elke vorm van intimiteit",
+            "Mijn lichaam verdient liefde en genot",
+            "Ik omarm mijn seksuele energie",
+            "Ik ben in harmonie met mijn verlangens",
+            "Mijn seksuele expressie is vrij en zelfverzekerd",
+            "Ik ben comfortabel in mijn seksualiteit",
+            "Mijn seksuele energie is een bron van creativiteit",
+            "Ik sta open voor nieuwe seksuele avonturen",
+            "Mijn seksuele behoeften zijn waardevol en legitiem",
+            "Ik geniet van het ontdekken van mijn seksuele grenzen",
+            "Mijn lichaam is een bron van plezier en kracht",
+            "Ik vier mijn seksuele vrijheid",
+            "Mijn seksualiteit is een belangrijk deel van wie ik ben",
+            "Ik ben trots op mijn seksuele zelf"
+          ] %}
+          {% set mantra = mantras | random %}
+          {{ mantra }}
+
+- alias: "Notifications: Hourly Mantra Notification for Willem"
+  trigger:
+    - platform: time_pattern
+      hours: "/1"
+  condition:
+    - "{{ not is_state('input_select.sleep_mode', 'total') }}"
+  action:
+    - service: notify.willem
+      data:
+        title: "Hourly Mantra 💪"
+        message: >
+          {% set mantras = [
+            "Ik ben sterker dan ik denk",
+            "Ik hoef mezelf niet te bewijzen",
+            "Ik ben geliefd",
+            "Ik ben het waard",
+            "Ik ben goed genoeg",
+            "Ik ken mijn dromen waar maken",
+            "Ik rock mijn carrière en fitnessdoelen met dezelfde passie",
+            "Ik mag mijn emoties voelen",
+            "Ik heb geen veiligheidsgedrag nodig"
           ] %}
           {% set mantra = mantras | random %}
           {{ mantra }}

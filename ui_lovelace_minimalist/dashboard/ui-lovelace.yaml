@@ -16,3 +16,4 @@ views:
   - !include "views/wardrobe.yaml"
   - !include "views/lab.yaml"
   - !include "views/battery.yaml"
+  - !include "views/switches.yaml"

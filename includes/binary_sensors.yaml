@@ -55,8 +55,8 @@
     activity_in_living:
       friendly_name: Activity in the living room
       value_template: >
-        {{ not is_state("media_player.woonkamer", "standby") }}
-      delay_off: "00:20:00"
+        {{ not (is_state("media_player.woonkamer", "standby") or is_state("media_player.woonkamer", "off")) }}
+      delay_off: "00:10:00"
       icon_template: "mdi:television{{ iif(is_state('binary_sensor.activity_in_living', 'off'), '-off', '') }}"
 
     # Precense

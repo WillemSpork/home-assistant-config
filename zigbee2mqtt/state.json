@@ -1,0 +1,31 @@
+{
+    "0x54ef441000922df7": {
+        "linkquality": 123,
+        "voltage": 3068,
+        "battery": 100,
+        "device_temperature": 25,
+        "power_outage_count": 19,
+        "state": "OFF",
+        "update": {
+            "state": "idle",
+            "installed_version": 31,
+            "latest_version": 31
+        },
+        "update_available": false
+    },
+    "0xbc026efffe7c99bd": {
+        "state": "ON",
+        "power_on_behavior": "previous",
+        "update": {
+            "state": "idle",
+            "installed_version": 587765297,
+            "latest_version": 587765297
+        },
+        "update_available": false,
+        "linkquality": 117
+    },
+    "0x54ef44100091b4d9": {
+        "voltage": 3200,
+        "battery": 100
+    }
+}

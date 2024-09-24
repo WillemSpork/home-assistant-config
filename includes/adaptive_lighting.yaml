@@ -3,6 +3,7 @@
     - light.plafondlamp
     - light.convectorput
     - light.sfeerlamp_woonkamer
+    - light.hue_color_lamp_1
   min_brightness: 30
   prefer_rgb_color: true
   detect_non_ha_changes: true
@@ -15,8 +16,7 @@
   take_over_control: false
   sleep_brightness: 1
   sleep_color_temp: 1000
-  sleep_brightness: 20
-  sleep_transition: 10
+  sleep_transition: 2
 
 - name: Office
   lights:
@@ -75,5 +75,5 @@
 # Will never out this instance to sleep mode
 - name: Wardrobe
   lights:
-  - light.inloopkast
+    - light.inloopkast
   min_brightness: 80

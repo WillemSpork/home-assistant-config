@@ -1,0 +1,102 @@
+title: "Schakels"
+path: switches
+icon: "mdi:toggle-switch-off"
+cards:
+  - type: "custom:button-card"
+    template: chip_back
+    variables:
+      ulm_chip_back_path: /ui-lovelace-minimalist/home
+
+  - type: vertical-stack
+    cards:
+
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_graph
+        entity: sensor.woonkamer_temperatuur
+        variables:
+          ulm_card_graph_color: "var(--google-red)"
+          ulm_card_graph_name: Temperatuur
+          ulm_card_graph_entity: sensor.woonkamer_temperatuur
+          ulm_card_graph_type: fill
+          ulm_card_graph_hours: 24
+          ulm_card_graph_group_by: interval
+          ulm_card_graph_line_width: 3
+      - type: 'custom:button-card'
+        template: card_graph
+        entity: sensor.woonkamer_luchtvochtigheid
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Luchtvochtigheid
+          ulm_card_graph_entity: sensor.woonkamer_luchtvochtigheid
+          ulm_card_graph_type: fill
+          ulm_card_graph_hours: 24
+          ulm_card_graph_group_by: interval
+          ulm_card_graph_line_width: 3
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Huismodi
+      label: 'Verschillende huismodi'
+
+        
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.vacation_mode
+        variables:
+          ulm_card_input_boolean_name: Vakantiemodus
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.cooking_mode
+        variables:
+          ulm_card_input_boolean_name: Kookmodus
+
+    - type: horizontal-stack
+      cards:
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.guest_mode
+        variables:
+          ulm_card_input_boolean_name: Gastenmodus
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.sleep_mode
+        variables:
+          ulm_card_input_boolean_name: Slaapmodus
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Televisiemodus
+      label: 'Verschillende huismodi'
+
+        
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.tv_mode
+        variables:
+          ulm_card_input_boolean_name: Televisiemodus
+
+    - type: horizontal-stack
+      cards:
+
+      - type: "custom:button-card"
+        template:
+          - card_input_datetime
+        entity: input_datetime.start_tvmodus
+        variables:
+          ulm_card_input_datetime_name: "Begin tijd"
+
+      - type: "custom:button-card"
+        template:
+          - card_input_datetime
+        entity: input_datetime.end_tvmodus
+        variables:
+          ulm_card_input_datetime_name: "Eind tijd"

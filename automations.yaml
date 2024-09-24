@@ -157,6 +157,8 @@
     entity_id: b19e1f31ca5ccee59ca1a30185d84575
     type: set_preset_mode
     preset_mode: auto
+  - service: light.turn_off
+    entity_id: all
   mode: single
 - id: '1699825461750'
   alias: Lichten Aan bij Beweging na Thuiskomst
@@ -268,3 +270,13 @@
         %} {{ stations[station] }}\n"
       media_content_type: music
   mode: single
+- id: standard_theme
+  alias: Standaard thema selecteren bij herstart
+  initial_state: 'true'
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: minimalist-ios-tapbar

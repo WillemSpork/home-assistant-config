@@ -6,3 +6,37 @@ cards:
     template: chip_back
     variables:
       ulm_chip_back_path: /ui-lovelace-minimalist/home
+
+  - type: vertical-stack
+    cards:
+
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_graph
+        entity: sensor.bathroom_humidity_temperature
+        variables:
+          ulm_card_graph_color: "var(--google-red)"
+          ulm_card_graph_name: Temperatuur
+          ulm_card_graph_entity: sensor.bathroom_humidity_temperature
+          ulm_card_graph_type: fill
+          ulm_card_graph_hours: 24
+          ulm_card_graph_group_by: interval
+          ulm_card_graph_line_width: 3
+      - type: 'custom:button-card'
+        template: card_graph
+        entity: sensor.bathroom_humidity_humidity
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Luchtvochtigheid
+          ulm_card_graph_entity: sensor.bathroom_humidity_humidity
+          ulm_card_graph_type: fill
+          ulm_card_graph_hours: 24
+          ulm_card_graph_group_by: interval
+          ulm_card_graph_line_width: 3
+    
+    - type: 'custom:button-card'
+      template: card_input_boolean
+      entity: switch.bathroom_switch_l2
+      variables:
+        ulm_card_input_boolean_name: Licht & afzuiging

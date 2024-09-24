@@ -62,6 +62,18 @@ cards:
 
     - type: 'custom:button-card'
       template: card_title
+      name: Verwarming
+
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: switch.eve_energy_20ebo8301
+        variables:
+          ulm_card_input_boolean_name: Verwarming
+
+    - type: 'custom:button-card'
+      template: card_title
       name: Media
 
     - type: horizontal-stack

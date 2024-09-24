@@ -18,14 +18,14 @@ cards:
       cards:
       - type: 'custom:button-card'
         template: card_battery
-        entity: sensor.iphone_van_nina_juffermans_2_battery_level
+        entity: sensor.iphone_van_nina_juffermans_battery_level
         variables:
-          ulm_card_battery_charger_type_entity_id: sensor.iphone_van_nina_juffermans_2_battery_level
+          ulm_card_battery_charger_type_entity_id: sensor.iphone_van_nina_juffermans_battery_level
           ulm_card_battery_battery_level_danger: 30
           ulm_card_battery_battery_level_warning: 80
           ulm_card_battery_name: Nina's iPhone
           ulm_card_battery_charging_animation: true
-          ulm_card_battery_battery_state_entity_id: sensor.iphone_van_nina_juffermans_2_battery_state
+          ulm_card_battery_battery_state_entity_id: sensor.iphone_van_nina_juffermans_battery_state
       - type: 'custom:button-card'
         template: card_battery
         entity: sensor.willems_iphone_battery_level

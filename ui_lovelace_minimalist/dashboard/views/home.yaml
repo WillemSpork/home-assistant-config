@@ -2,276 +2,293 @@ title: "Home"
 path: home
 icon: "mdi:home"
 cards:
-
   # Put everything in a vertical stack for desktop-view
   - type: vertical-stack
     cards:
-
-    # Welcome card
-    - type: "custom:button-card"
-      template: "card_esh_welcome"
-      triggers_update: "input_boolean.welcome_toggle"
-      variables:
-        ulm_card_esh_welcome_collapse: input_boolean.welcome_toggle
-        ulm_weather: "weather.buienradar"
-        entity_1:
-          nav: "house"
-          icon: "mdi:home"
-          name: "House"
-          color: "blue"
-        entity_2:
-          nav: "lights"
-          icon: "mdi:lightbulb"
-          name: "Lights"
-          color: "yellow"
-        entity_3:
-          nav: "security"
-          icon: "mdi:shield"
-          name: Secure
-          color: "green"
-        entity_4:
-          nav: "battery"
-          icon: "mdi:battery-medium"
-          name: Battery
-          color: "purple"
-        entity_5:
-          nav: "lab"
-          icon: "mdi:flask"
-          name: Lab
-          color: "red"
-
-    # Room presense chips
-    - type: horizontal-stack
-      cards:
-      - type: 'custom:button-card'
-        template: chip_icon_state
+      # Welcome card
+      - type: "custom:button-card"
+        template: "card_esh_welcome"
+        triggers_update: "input_boolean.welcome_toggle"
         variables:
-          ulm_chip_icon_state_icon: '🙎🏼‍♀️'
-          ulm_chip_icon_state_entity: sensor.nina_in_home_location
-
-      - type: 'custom:button-card'
-        template: chip_icon_state
-        variables:
-          ulm_chip_icon_state_icon: '🙎🏼'
-          ulm_chip_icon_state_entity: sensor.willem_in_home_location
-
-
-    # Person cards
-
-    - type: horizontal-stack
-      cards:
-      - type: 'custom:button-card'
-        template: card_person
-        entity: person.willem_spork
-        variables:
-          ulm_card_person_entity: person.willem_spork
-          ulm_card_person_use_entity_picture: true
-          ulm_card_person_icon: mdi:face-man
-          ulm_card_person_battery: sensor.willems_iphone_battery_level
-          ulm_card_person_zone1: zone.schiedam
-          ulm_card_person_zone2: zone.blendle
-      - type: 'custom:button-card'
-        template: card_person
-        entity: person.nina_juffermans
-        variables:
-          ulm_card_person_entity: person.nina_juffermans
-          ulm_card_person_use_entity_picture: true
-          ulm_card_person_icon: mdi:face-man
-          ulm_card_person_battery: sensor.iphone_van_nina_juffermans_2_battery_level
-          ulm_card_person_zone1: zone.schiedam
-          ulm_card_person_zone2: zone.blendle
-
-    # Title: room cards
-
-    - type: 'custom:button-card'
-      template: card_title
-      name: Kamers
-
-    # Room cards: Living & Office
-
-    - type: horizontal-stack
-      cards:
-      - type: 'custom:button-card'
-        template:
-          - card_room
-          - green_no_state
-        name: Woonkamer
-        entity: sensor.woonkamer_temperatuur
-        icon: mdi:sofa
-        tap_action:
-          action: navigate
-          navigation_path: '/ui-lovelace-minimalist/living'
-        variables:
-          label_use_temperature: true
-          label_use_brightness: false
+          ulm_card_esh_welcome_collapse: input_boolean.welcome_toggle
+          ulm_weather: "weather.buienradar"
           entity_1:
-            entity_id: light.woonkamer
-            templates:
-              - yellow_on
-            tap_action:
-              action: toggle
+            nav: "home"
+            icon: "mdi:home"
+            name: "Huis"
+            color: "blue"
           entity_2:
-            entity_id: fan.slaapkamer
-            templates:
-              - blue_on
-            tap_action:
-              action: toggle
+            nav: "switches"
+            icon: "mdi:toggle-switch-off"
+            name: "Schakels"
+            color: "yellow"
           entity_3:
-            entity_id: climate.woonkamer
-            templates:
-              - red_on
-            tap_action:
-              action: more-info
+            nav: "security"
+            icon: "mdi:shield"
+            name: "Beveliging"
+            color: "green"
           entity_4:
-            entity_id: binary_sensor.activity_in_living
-            templates:
-              - blue_on
-            tap_action:
-              action: toggle
-      - type: 'custom:button-card'
-        template:
-          - card_room
-          - red_no_state
-        name: Kantoor
-        entity: sensor.kantoor_temperatuur
-        icon: mdi:chair-rolling
-        tap_action:
-          action: navigate
-          navigation_path: '/ui-lovelace-minimalist/office'
-        variables:
-          label_use_temperature: false
-          label_use_brightness: true
-          entity_1:
-            entity_id: light.kantoor
-            templates:
-              - yellow_on
-            tap_action:
-              action: toggle
-          entity_2:
-            entity_id: climate.kantoor
-            templates:
-              - red_on
-            tap_action:
-              action: more-info
+            nav: "battery"
+            icon: "mdi:battery-medium"
+            name: "Batterij"
+            color: "purple"
+          entity_5:
+            nav: "lab"
+            icon: "mdi:flask"
+            name: "Lab"
+            color: "red"
 
-    # Room cards: Bedroom & Kitchen
+      # Room presense chips
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            color_type: blank-card
 
-    - type: horizontal-stack
-      cards:
-      - type: 'custom:button-card'
-        template:
-          - card_room
-          - pink_no_state
-        name: Slaapkamer
-        entity: sensor.huiskamer_temperature
-        icon: mdi:bed-double
-        tap_action:
-          action: navigate
-          navigation_path: '/ui-lovelace-minimalist/bedroom'
-        variables:
-          label_use_temperature: true
-          label_use_brightness: true
-          entity_1:
-            entity_id: light.slaapkamer
-            templates:
-              - yellow_on
-            tap_action:
-              action: toggle
-          entity_2:
-            entity_id: fan.huiskamer
-            templates:
-              - blue_on
-            tap_action:
-              action: toggle
-          entity_3:
-            entity_id: climate.slaapkamer
-            templates:
-              - red_on
-            tap_action:
-              action: more-info
-      - type: 'custom:button-card'
-        template:
-          - card_room
-          - blue_no_state
-        name: Keuken
-        entity: sensor.keuken_sensor_temperature
-        icon: mdi:stove
-        tap_action:
-          action: navigate
-          navigation_path: '/ui-lovelace-minimalist/kitchen'
-        variables:
-          label_use_temperature: true
-          label_use_brightness: false
-          entity_1:
-            entity_id: light.keuken
-            templates:
-              - yellow_on
-            tap_action:
-              action: toggle
-          entity_2:
-            entity_id: input_boolean.cooking_mode
-            templates:
-              - red_on
-            tap_action:
-              action: toggle
-          entity_3:
-            entity_id: binary_sensor.activity_in_kitchen
-            templates:
-              - green_on
-            tap_action:
-              action: none
+          - type: "custom:button-card"
+            template: chip_icon_state
+            variables:
+              ulm_chip_icon_state_icon: "🙎🏼‍♀️"
+              ulm_chip_icon_state_entity: sensor.nina_in_home_location
 
-    # Room cards: Wardrobe & Hallway
+          - type: "custom:button-card"
+            template: chip_icon_state
+            variables:
+              ulm_chip_icon_state_icon: "🙎🏼"
+              ulm_chip_icon_state_entity: sensor.willem_in_home_location
 
-    - type: horizontal-stack
-      cards:
-      - type: 'custom:button-card'
-        template:
-          - card_room
-          - red_no_state
-        name: Inloopkast
-        entity: sensor.inloopkast_temperatuur
-        icon: mdi:hanger
-        tap_action:
-          action: navigate
-          navigation_path: '/ui-lovelace-minimalist/wardrobe'
-        variables:
-          label_use_temperature: true
-          label_use_brightness: false
-          entity_1:
-            entity_id: light.inloopkast
-            templates:
-              - yellow_on
+          - type: "custom:button-card"
+            color_type: blank-card
+
+      # Person cards
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_person
+            entity: person.willem_spork
+            variables:
+              ulm_card_person_entity: person.willem_spork
+              ulm_card_person_use_entity_picture: true
+              ulm_card_person_icon: mdi:face-man
+              ulm_card_person_battery: sensor.willems_iphone_battery_level
+              ulm_card_person_zone1: zone.schiedam
+              ulm_card_person_zone2: zone.blendle
+          - type: "custom:button-card"
+            template: card_person
+            entity: person.nina_juffermans
+            variables:
+              ulm_card_person_entity: person.nina_juffermans
+              ulm_card_person_use_entity_picture: true
+              ulm_card_person_icon: mdi:face-man
+              ulm_card_person_battery: sensor.iphone_van_nina_juffermans_battery_level
+              ulm_card_person_zone1: zone.schiedam
+              ulm_card_person_zone2: zone.blendle
+
+      # Title: room cards
+
+      - type: "custom:button-card"
+        template: card_title
+        name: Kamers
+
+      # Room cards: Living & Office
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template:
+              - card_room
+              - green_no_state
+            name: Woonkamer
+            entity: sensor.woonkamer_temperatuur
+            icon: mdi:sofa
             tap_action:
-              action: toggle
-          entity_2:
-            entity_id: climate.inloopkast
-            templates:
-              - red_on
+              action: navigate
+              navigation_path: "/ui-lovelace-minimalist/living"
+            variables:
+              label_use_temperature: true
+              label_use_brightness: false
+              entity_1:
+                entity_id: light.woonkamer
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_2:
+                entity_id: fan.slaapkamer
+                templates:
+                  - blue_on
+                tap_action:
+                  action: toggle
+              entity_3:
+                entity_id: climate.woonkamer
+                templates:
+                  - red_on
+                tap_action:
+                  action: more-info
+              entity_4:
+                entity_id: binary_sensor.activity_in_living
+                templates:
+                  - blue_on
+                tap_action:
+                  action: toggle
+          - type: "custom:button-card"
+            template:
+              - card_room
+              - red_no_state
+            name: Kantoor
+            entity: sensor.woonkamer_temperatuur
+            icon: mdi:chair-rolling
             tap_action:
-              action: none
-      - type: 'custom:button-card'
-        template:
-          - card_room
-          - blue_no_state
-        name: Gang
-        entity: sensor.gang_sensor_temperature
-        icon: mdi:door-closed
-        tap_action:
-          action: navigate
-          navigation_path: '/ui-lovelace-minimalist/hallway'
-        variables:
-          label_use_temperature: false
-          label_use_brightness: true
-          entity_1:
-            entity_id: light.gang
-            templates:
-              - yellow_on
+              action: navigate
+              navigation_path: "/ui-lovelace-minimalist/office"
+            variables:
+              label_use_temperature: false
+              label_use_brightness: true
+              entity_1:
+                entity_id: light.kantoor
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+
+      # Room cards: Bedroom & Kitchen
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template:
+              - card_room
+              - pink_no_state
+            name: Slaapkamer
+            entity: sensor.huiskamer_temperature
+            icon: mdi:bed-double
             tap_action:
-              action: toggle
-          entity_2:
-            entity_id: binary_sensor.activity_in_hallway
-            templates:
-              - blue_on
+              action: navigate
+              navigation_path: "/ui-lovelace-minimalist/bedroom"
+            variables:
+              label_use_temperature: true
+              label_use_brightness: true
+              entity_1:
+                entity_id: light.slaapkamer
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_2:
+                entity_id: fan.huiskamer
+                templates:
+                  - blue_on
+                tap_action:
+                  action: toggle
+              entity_3:
+                entity_id: climate.slaapkamer
+                templates:
+                  - red_on
+                tap_action:
+                  action: more-info
+          - type: "custom:button-card"
+            template:
+              - card_room
+              - blue_no_state
+            name: Keuken
+            entity: sensor.keuken_sensor_temperature
+            icon: mdi:stove
             tap_action:
-              action: none
+              action: navigate
+              navigation_path: "/ui-lovelace-minimalist/kitchen"
+            variables:
+              label_use_temperature: true
+              label_use_brightness: false
+              entity_1:
+                entity_id: light.keuken
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_2:
+                entity_id: input_boolean.cooking_mode
+                templates:
+                  - red_on
+                tap_action:
+                  action: toggle
+              entity_3:
+                entity_id: binary_sensor.activity_in_kitchen
+                templates:
+                  - green_on
+                tap_action:
+                  action: none
+
+      # Room cards: Wardrobe & Hallway
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template:
+              - card_room
+              - red_no_state
+            name: Inloopkast
+            entity: sensor.inloopkast_temperatuur
+            icon: mdi:hanger
+            tap_action:
+              action: navigate
+              navigation_path: "/ui-lovelace-minimalist/wardrobe"
+            variables:
+              label_use_temperature: true
+              label_use_brightness: false
+              entity_1:
+                entity_id: light.inloopkast
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_2:
+                entity_id: climate.inloopkast
+                templates:
+                  - red_on
+                tap_action:
+                  action: none
+          - type: "custom:button-card"
+            template:
+              - card_room
+              - blue_no_state
+            name: Gang
+            entity: sensor.gang_sensor_temperature
+            icon: mdi:door-closed
+            tap_action:
+              action: navigate
+              navigation_path: "/ui-lovelace-minimalist/hallway"
+            variables:
+              label_use_temperature: false
+              label_use_brightness: true
+              entity_1:
+                entity_id: light.gang
+                templates:
+                  - yellow_on
+                tap_action:
+                  action: toggle
+              entity_2:
+                entity_id: binary_sensor.activity_in_hallway
+                templates:
+                  - blue_on
+                tap_action:
+                  action: none
+
+      # - type: horizontal-stack
+      #   cards:
+      #     - type: "custom:button-card"
+      #       template:
+      #         - card_esh_room
+      #         - yellow_on
+      #       name: Badkamer
+      #       entity: sensor.bathroom_humidity_temperature
+      #       icon: mdi:shower-head
+      #       tap_action:
+      #         action: navigate
+      #         navigation_path: "/ui-lovelace-minimalist/bathroom"
+      #       variables:
+      #         ulm_custom_card_esh_room_light_entity: switch.bathroom_switch_l2
+      #         ulm_card_dynamic_color: true
+      #       label: >
+      #         [[[
+      #           return "🌡️ " + states['sensor.bathroom_humidity_temperature'].state + " °C" + " 💧 " + states['sensor.bathroom_humidity_humidity'].state + " %"
+      #         ]]]

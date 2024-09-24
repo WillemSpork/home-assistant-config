@@ -1,0 +1,49 @@
+homeassistant: true
+advanced:
+  network_key:
+    - 105
+    - 251
+    - 34
+    - 108
+    - 74
+    - 71
+    - 208
+    - 170
+    - 74
+    - 166
+    - 52
+    - 15
+    - 148
+    - 147
+    - 146
+    - 87
+  pan_id: 31170
+  ext_pan_id:
+    - 176
+    - 156
+    - 154
+    - 175
+    - 199
+    - 170
+    - 146
+    - 108
+  homeassistant_legacy_entity_attributes: false
+  legacy_api: false
+  legacy_availability_payload: false
+mqtt:
+  server: mqtt://core-mosquitto:1883
+  user: addons
+  password: Zid7vaichoangahr7Phaeb0lohxoo7angaihaushu2sha4uataijeish3egeewee
+serial:
+  port: /dev/ttyUSB0
+frontend:
+  port: 8099
+device_options:
+  legacy: false
+devices:
+  '0x54ef441000922df7':
+    friendly_name: kitchen_button
+  '0xbc026efffe7c99bd':
+    friendly_name: closet_socket
+  '0x54ef44100091b4d9':
+    friendly_name: bathroom_humidity

@@ -1,0 +1,10 @@
+- alias: "iOS: lichten in kantoor aan-/uitzetten"
+  initial_state: true
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: "Kantoor"
+  action:
+    - service: light.toggle
+      entity_id: light.kantoor_lampen

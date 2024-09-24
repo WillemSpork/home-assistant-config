@@ -7,7 +7,59 @@
 #                           __/ |                              
 #                          |___/                               
 
-
+- alias: 'Lights: Adaptive Lighting TV Mode Control'
+  description: 'Control the sleep mode for adaptive lighting based on media player state'
+  trigger:
+    - platform: state
+      entity_id: media_player.woonkamer
+    - platform: state
+      entity_id: input_boolean.tv_mode
+  condition:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: media_player.woonkamer
+          state: 'playing'
+        - condition: state
+          entity_id: input_boolean.tv_mode
+          state: 'on'
+    - condition: or
+      conditions:
+        - condition: template
+          value_template: >
+            {{ states('sensor.time') >= states('input_datetime.start_tvmodus')[0:5] }}
+        - condition: template
+          value_template: >
+            {{ states('sensor.time') <= states('input_datetime.end_tvmodus')[0:5] }}
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.tv_mode
+              state: 'on'
+            - condition: state
+              entity_id: media_player.woonkamer
+              state: 'playing'
+          sequence:
+            - service: switch.turn_on
+              target:
+                entity_id: switch.adaptive_lighting_sleep_mode_living_room
+        - conditions:
+            - condition: or
+              conditions:
+                - condition: state
+                  entity_id: input_boolean.tv_mode
+                  state: 'off'
+                - condition: not
+                  conditions:
+                    - condition: state
+                      entity_id: media_player.woonkamer
+                      state: 'playing'
+          sequence:
+            - service: switch.turn_off
+              target:
+                entity_id: switch.adaptive_lighting_sleep_mode_living_room
+  mode: single
 
 #   _  ___ _       _                
 #  | |/ (_) |     | |               

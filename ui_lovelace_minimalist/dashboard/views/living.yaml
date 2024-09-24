@@ -63,16 +63,22 @@ cards:
       cards:
       - type: "custom:button-card"
         template: card_light
-        entity: light.sfeerlamp_woonkamer
+        entity: light.hue_color_lamp_1
         variables:
           ulm_card_light_enable_slider: true
           ulm_card_light_enable_color: true
           ulm_card_light_enable_collapse: true
           ulm_card_light_force_background_color: true
           ulm_card_light_icon: "mdi:wall-sconce-flat"
-      - type: 'custom:button-card'
-        template: card_generic
-        entity: input_boolean.coocking_mode
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.sfeerlamp_woonkamer
+        variables:
+          ulm_card_light_enable_slider: true
+          ulm_card_light_enable_color: true
+          ulm_card_light_enable_collapse: true
+          ulm_card_light_force_background_color: true
+          ulm_card_light_icon: "mdi:floor-lamp"
 
     - type: 'custom:button-card'
       template: card_title
@@ -111,6 +117,7 @@ cards:
           ulm_card_media_player_name : Apple TV
           ulm_card_media_player_icon: "mdi:apple"
           ulm_card_media_player_power_button: true
+          ulm_card_media_player_enable_art: true
       - type: "custom:button-card"
         template: card_media_player
         entity: media_player.sonos

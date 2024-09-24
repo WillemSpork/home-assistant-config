@@ -6,6 +6,11 @@ blueprints
 deps
 image
 tts
+custom_components
+media
+share
+ssl
+wwww
 
 # Django stuff:
 *.log
@@ -36,3 +41,6 @@ home-assistant_v2.dblog
 zigbee.db
 scenes.yaml
 fitbit.conf
+.bash_history
+.bash_profile
+.tmux.conf

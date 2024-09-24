@@ -4,6 +4,7 @@ cors_allowed_origins:
   - https://www.home-assistant.io
 trusted_proxies:
   - 10.1.10.2
+  - 192.168.178.176
   - 173.245.48.0/20
   - 103.21.244.0/22
   - 103.22.200.0/22

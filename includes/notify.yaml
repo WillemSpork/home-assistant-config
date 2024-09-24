@@ -12,7 +12,7 @@
   name: all_iphones
   services:
     - service: mobile_app_willems_iphone
-    - service: mobile_app_iphone_van_nina_juffermans_2
+    - service: mobile_app_iphone_van_nina_juffermans
 
 - platform: group
   name: willem
@@ -23,7 +23,7 @@
 - platform: group
   name: nina
   services:
-    - service: mobile_app_iphone_van_nina_juffermans_2
+    - service: mobile_app_iphone_van_nina_juffermans
 
 - platform: group
   name: iphone_willem
@@ -34,7 +34,7 @@
   name: all
   services:
     - service: mobile_app_willems_iphone
-    - service: mobile_app_iphone_van_nina_juffermans_2
+    - service: mobile_app_iphone_van_nina_juffermans
     - service: mobile_app_macbook_pro_van_willem
     - service: tv
     - service: chrome

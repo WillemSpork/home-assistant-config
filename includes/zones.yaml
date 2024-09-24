@@ -13,23 +13,17 @@
 - name: Purmerend
   latitude: !secret latitude_purmerend
   longitude: !secret longitude_purmerend
-  radius: 1250
+  radius: 3000
   icon: mdi:home-plus
-
-- name: Blendle
-  latitude: !secret latitude_blendle
-  longitude: !secret longitude_blendle
-  radius: 30
-  icon: mdi:office-building
-
-- name: School
-  latitude: !secret latitude_school
-  longitude: !secret longitude_school
-  radius: 300
-  icon: mdi:school
 
 - name: Office
   latitude: !secret latitude_office
   longitude: !secret longitude_office
   radius: 300
   icon: mdi:office-building
+
+- name: Crete
+  latitude: !secret latitude_crete
+  longitude: !secret longitude_crete
+  radius: 150000
+  icon: mdi:island

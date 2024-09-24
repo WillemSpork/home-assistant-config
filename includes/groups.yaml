@@ -5,25 +5,25 @@ persons:
     - person.nina_juffermans
 
 ihpone_nina:
-  - binary_sensor.iphone_van_nina_juffermans_2_focus
-  - sensor.iphone_van_nina_juffermans_2_activity
-  - sensor.iphone_van_nina_juffermans_2_average_active_pace
-  - sensor.iphone_van_nina_juffermans_2_battery_level
-  - sensor.iphone_van_nina_juffermans_2_battery_state
-  - sensor.iphone_van_nina_juffermans_2_bssid
-  - sensor.iphone_van_nina_juffermans_2_connection_type
-  - sensor.iphone_van_nina_juffermans_2_distance
-  - sensor.iphone_van_nina_juffermans_2_floors_ascended
-  - sensor.iphone_van_nina_juffermans_2_floors_descended
-  - sensor.iphone_van_nina_juffermans_2_geocoded_location
-  - sensor.iphone_van_nina_juffermans_2_last_update_trigger
-  - sensor.iphone_van_nina_juffermans_2_sim_1
-  - sensor.iphone_van_nina_juffermans_2_sim_2
-  - sensor.iphone_van_nina_juffermans_2_ssid
-  - sensor.iphone_van_nina_juffermans_2_steps
-  - sensor.iphone_van_nina_juffermans_2_storage
-  - device_tracker.iphone_van_nina_juffermans_2
-  - device_tracker.iphone_van_nina_juffermans_2_router
+  - binary_sensor.iphone_van_nina_juffermans_focus
+  - sensor.iphone_van_nina_juffermans_activity
+  - sensor.iphone_van_nina_juffermans_average_active_pace
+  - sensor.iphone_van_nina_juffermans_battery_level
+  - sensor.iphone_van_nina_juffermans_battery_state
+  - sensor.iphone_van_nina_juffermans_bssid
+  - sensor.iphone_van_nina_juffermans_connection_type
+  - sensor.iphone_van_nina_juffermans_distance
+  - sensor.iphone_van_nina_juffermans_floors_ascended
+  - sensor.iphone_van_nina_juffermans_floors_descended
+  - sensor.iphone_van_nina_juffermans_geocoded_location
+  - sensor.iphone_van_nina_juffermans_last_update_trigger
+  - sensor.iphone_van_nina_juffermans_sim_1
+  - sensor.iphone_van_nina_juffermans_sim_2
+  - sensor.iphone_van_nina_juffermans_ssid
+  - sensor.iphone_van_nina_juffermans_steps
+  - sensor.iphone_van_nina_juffermans_storage
+  - device_tracker.iphone_van_nina_juffermans
+  - device_tracker.iphone_van_nina_juffermans_router
 
 ihpone_willem:
   - binary_sensor.willems_iphone_focus

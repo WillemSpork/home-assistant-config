@@ -60,7 +60,7 @@
         {% if is_state('sensor.iphone_nina_ble', 'not_home') %}
           Niet thuis
         {% else %}
-          {{ states('sensor.iphone_nina_ble') }}
+          {{ states('sensor.iphone_nina_ble') | capitalize }}
         {% endif %}
     willem_in_home_location:
       friendly_name: "Willem BLE Status"
@@ -68,7 +68,7 @@
         {% if is_state('sensor.iphone_willem_ble', 'not_home') %}
           Niet thuis
         {% else %}
-          {{ states('sensor.iphone_willem_ble') }}
+          {{ states('sensor.iphone_willem_ble') | capitalize  }}
         {% endif %}
     macbook_pro_van_willem_charging:
       friendly_name: "Macbook Pro van Willem Charging"
@@ -78,6 +78,12 @@
         {% else %}
           discharging
         {% endif %}
+
+#Time
+
+- platform: time_date
+  display_options:
+    - 'time'
 
 
 #ESPprecense > Willem (Phone)

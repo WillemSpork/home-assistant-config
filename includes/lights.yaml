@@ -6,6 +6,7 @@
     - light.plafondlamp_3
     - light.convectorput
     - light.sfeerlamp_woonkamer
+    - light.hue_color_lamp_1
 
 - platform: group
   name: Kantoor lampen
@@ -32,6 +33,9 @@
   name: Gang lampen
   entities:
     - light.gang_plafond
+    - light.gang_spot_1
+    - light.gang_spot_2
+    - light.gang_spot_3
 
 - platform: group
   name: Inloopkast lampen

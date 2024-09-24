@@ -1,0 +1,11 @@
+actions:
+  - name: Kantoor
+    background_color: "#000000"
+    label:
+      text: "Kantoor"
+      color: "#ffffff"
+    icon:
+      icon: chair-rolling
+      color: "#ffffff"
+    show_in_carplay: false
+    show_in_watch: true

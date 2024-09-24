@@ -4,27 +4,48 @@ icon: "mdi:test-tube"
 cards:
   - type: horizontal-stack
     cards:
-    - type: "custom:button-card"
-      template: chip_back
-      variables:
-        ulm_chip_back_path: /ui-lovelace-minimalist/home
-    - type: 'custom:button-card'
-      template: chip_icon_double_state
-      variables:
-        ulm_chip_icon_double_state_icon: '⚒️'
-        ulm_chip_icon_double_state_entity_1: sensor.minecraft_server_spelers_online
-        ulm_chip_icon_double_state_entity_2: sensor.minecraft_server_vertraging
-        ulm_chip_navigate_path: /lovelace-minimalist-ui/0
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /ui-lovelace-minimalist/home
+      - type: "custom:button-card"
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: "⚒️"
+          ulm_chip_icon_double_state_entity_1: sensor.minecraft_server_spelers_online
+          ulm_chip_icon_double_state_entity_2: sensor.minecraft_server_vertraging
+          ulm_chip_navigate_path: /lovelace-minimalist-ui/0
 
   - type: horizontal-stack
     cards:
-    - type: 'custom:button-card'
-      template: card_generic
-      entity: sensor.speedtest_download
-      variables:
-        ulm_card_generic_name: Download
-    - type: 'custom:button-card'
-      template: card_generic
-      entity: sensor.speedtest_upload
-      variables:
-        ulm_card_generic_name: Upload
+      - type: "custom:button-card"
+        template: card_generic
+        entity: sensor.speedtest_download
+        variables:
+          ulm_card_generic_name: Download
+      - type: "custom:button-card"
+        template: card_generic
+        entity: sensor.speedtest_upload
+        variables:
+          ulm_card_generic_name: Upload
+
+  # - type: "custom:button-card"
+  #   template: custom_card_damix48_power_details
+  #   entity: sensor.p1_meter_5c2faf080aee_active_power
+  #   variables:
+  #     ulm_card_power_details_name: Power
+  #     ulm_card_power_details_entity: sensor.p1_meter_5c2faf080aee_active_power
+  #     ulm_card_power_details_hours: 2
+  #     ulm_card_power_details_24hour: true
+  #     ulm_card_power_details_thresholds:
+  #       - value: 0
+  #         color: "#43A047"
+  #       - value: 2500
+  #         color: "#FFA600"
+  #       - value: 3000
+  #         color: "#DB4437"
+
+  - type: "custom:button-card"
+    template: "custom_card_eraycetinay_elapsed_time"
+    entity: input_datetime.no_one_home
+    name: "Niemand thuis"

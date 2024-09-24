@@ -11,6 +11,7 @@ media
 share
 ssl
 wwww
+zigbee2mqtt
 
 # Django stuff:
 *.log
@@ -44,3 +45,4 @@ fitbit.conf
 .bash_history
 .bash_profile
 .tmux.conf
+.gitconfig

@@ -11,6 +11,7 @@ media
 share
 ssl
 wwww
+www/community
 zigbee2mqtt
 
 # Django stuff:

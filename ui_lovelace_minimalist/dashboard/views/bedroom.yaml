@@ -60,17 +60,17 @@ cards:
           ulm_card_light_force_background_color: true
           ulm_card_light_icon: "mdi:lamp"
 
-    - type: 'custom:button-card'
-      template: card_title
-      name: Verwarming
-
-    - type: horizontal-stack
-      cards:
-      - type: 'custom:button-card'
-        template: card_input_boolean
-        entity: switch.eve_energy_20ebo8301
-        variables:
-          ulm_card_input_boolean_name: Verwarming
+#    - type: 'custom:button-card'
+#      template: card_title
+#      name: Verwarming
+#
+#    - type: horizontal-stack
+#      cards:
+#      - type: 'custom:button-card'
+#        template: card_input_boolean
+#        entity: switch.eve_energy_20ebo8301
+#        variables:
+#          ulm_card_input_boolean_name: Verwarming
 
     - type: 'custom:button-card'
       template: card_title

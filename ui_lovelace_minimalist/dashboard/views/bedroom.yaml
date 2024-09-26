@@ -62,7 +62,7 @@ cards:
 
 #    - type: 'custom:button-card'
 #      template: card_title
-#      name: Verwarming
+#      name: Verwarmin
 #
 #    - type: horizontal-stack
 #      cards:

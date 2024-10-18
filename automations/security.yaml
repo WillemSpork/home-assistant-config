@@ -1,14 +1,14 @@
 - alias: "Security: motion detected but we are not home"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.motion_detected
-    from: "off"
-    to: "on"
-  condition:
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.motion_detected
+      from: "off"
+      to: "on"
+  conditions:
     - condition: state
       entity_id: group.persons
       state: not_home
-  action:
+  actions:
     - service: notify.willem
       data:
         title: "Security"
@@ -26,10 +26,11 @@
               authenticationRequired: true
               destructive: true
     - wait_for_trigger:
-        platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: SOUND_ALARM
+        triggers:
+          - trigger: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: SOUND_ALARM
       timeout: "01:00:00"
       continue_on_timeout: false
     - service: light.turn_on
@@ -39,39 +40,39 @@
         color_name: red
 
 - alias: "Security: front door has been open for more than 5 minutes"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.voordeur_deur
-    from: "off"
-    to: "on"
-    for: "00:05:00"
-  action:
-    service: notify.all_iphones
-    data:
-      title: "Security"
-      message: "The front door has been open for more than 5 minutes."
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.voordeur_deur
+      from: "off"
+      to: "on"
+      for: "00:05:00"
+  actions:
+    - service: notify.all_iphones
       data:
-        push:
-          sound:
-            name: default
-            critical: 1
-            volume: 1.0
+        title: "Security"
+        message: "The front door has been open for more than 5 minutes."
+        data:
+          push:
+            sound:
+              name: default
+              critical: 1
+              volume: 1.0
 
 - alias: "Security: back door has been open for more than 5 minutes"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.achterdeur_deur
-    from: "off"
-    to: "on"
-    for: "00:05:00"
-  action:
-    service: notify.all_iphones
-    data:
-      title: "Security"
-      message: "The back door has been open for more than 5 minutes."
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.achterdeur_deur
+      from: "off"
+      to: "on"
+      for: "00:05:00"
+  actions:
+    - service: notify.all_iphones
       data:
-        push:
-          sound:
-            name: default
-            critical: 1
-            volume: 1.0
+        title: "Security"
+        message: "The back door has been open for more than 5 minutes."
+        data:
+          push:
+            sound:
+              name: default
+              critical: 1
+              volume: 1.0

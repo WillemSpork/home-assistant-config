@@ -1,11 +1,11 @@
 # Before I add automations, I first test them here
 
 - alias: "Test: notify groups"
-  trigger:
-    platform: state
-    entity_id: input_boolean.test_mode
-    to: "on"
-  action:
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.test_mode
+      to: "on"
+  actions:
     - service: notify.nina
       data:
         title: Test
@@ -16,6 +16,6 @@
       data:
         cache: false
         entity_id:
-        - media_player.slaapkamer_2
-        - media_player.slaapkamer
+          - media_player.slaapkamer_2
+          - media_player.slaapkamer
         message: Willem voert een test uit!

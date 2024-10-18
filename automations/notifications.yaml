@@ -1,44 +1,44 @@
 # Locationbased notifications
 - alias: "Work: Willem left work notification for Nina"
-  trigger:
-    platform: state
-    entity_id: person.willem_spork
-    from: 'Office'
-  condition:
-    condition: time
-    after: '15:00:00'
-    before: '23:00:00'
-  action:
-    service: notify.all_iphones
-    data:
-      title: "Work"
-      message: "Willem vertrekt van kantoor! ♥️🎉"
+  triggers:
+    - trigger: state
+      entity_id: person.willem_spork
+      from: 'Office'
+  conditions:
+    - condition: time
+      after: '15:00:00'
+      before: '23:00:00'
+  actions:
+    - service: notify.all_iphones
+      data:
+        title: "Work"
+        message: "Willem vertrekt van kantoor! ♥️🎉"
 
 - alias: "Work: Nina left work notification for Willem"
-  trigger:
-    platform: state
-    entity_id: person.nina_juffermans
-    from: 'Office'
-  condition:
-    condition: time
-    after: '15:00:00'
-    before: '23:00:00'
-  action:
-    service: notify.all_iphones
-    data:
-      title: "Work"
-      message: "Nina vertrekt van kantoor! ♥️🎉"
+  triggers:
+    - trigger: state
+      entity_id: person.nina_juffermans
+      from: 'Office'
+  conditions:
+    - condition: time
+      after: '15:00:00'
+      before: '23:00:00'
+  actions:
+    - service: notify.all_iphones
+      data:
+        title: "Work"
+        message: "Nina vertrekt van kantoor! ♥️🎉"
 
 - alias: "Notifications: front door has opened"
-  trigger:
-    platform: state
-    entity_id: binary_sensor.voordeur_deur
-    to: "on"
-  condition:
-    condition: state
-    entity_id: input_boolean.front_door_open_warning
-    state: "on"
-  action:
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.voordeur_deur
+      to: "on"
+  conditions:
+    - condition: state
+      entity_id: input_boolean.front_door_open_warning
+      state: "on"
+  actions:
     - service: notify.willem
       data:
         title: Security
@@ -47,12 +47,13 @@
       entity_id: input_boolean.front_door_open_warning
 
 - alias: "Notifications: Hourly Mantra Notification for Nina"
-  trigger:
-    - platform: time_pattern
+  triggers:
+    - trigger: time_pattern
       hours: "/1"
-  condition:
-    - "{{ not is_state('input_select.sleep_mode', 'total') }}"
-  action:
+  conditions:
+    - condition: template
+      value_template: "{{ not is_state('input_select.sleep_mode', 'total') }}"
+  actions:
     - service: notify.nina
       data:
         title: "Hourly Mantra ❤️"
@@ -119,12 +120,13 @@
           {{ mantra }}
 
 - alias: "Notifications: Hourly Mantra Notification for Willem"
-  trigger:
-    - platform: time_pattern
+  triggers:
+    - trigger: time_pattern
       hours: "/1"
-  condition:
-    - "{{ not is_state('input_select.sleep_mode', 'total') }}"
-  action:
+  conditions:
+    - condition: template
+      value_template: "{{ not is_state('input_select.sleep_mode', 'total') }}"
+  actions:
     - service: notify.willem
       data:
         title: "Hourly Mantra 💪"

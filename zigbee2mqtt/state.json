@@ -1,7 +1,7 @@
 {
     "0x54ef441000922df7": {
-        "linkquality": 108,
-        "voltage": 3067,
+        "linkquality": 111,
+        "voltage": 3059,
         "battery": 100,
         "device_temperature": 25,
         "power_outage_count": 19,
@@ -22,7 +22,7 @@
             "latest_version": 587765297
         },
         "update_available": false,
-        "linkquality": 111
+        "linkquality": 105
     },
     "0x54ef44100091b4d9": {
         "voltage": 3200,

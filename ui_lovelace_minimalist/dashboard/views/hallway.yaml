@@ -72,3 +72,22 @@ cards:
             ulm_card_light_force_background_color: true
             ulm_card_light_icon: "mdi:ceiling-light"
             ulm_card_light_name: Gang
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Adaptieve verlichting
+
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: switch.adaptive_lighting_hallway
+        variables:
+          ulm_card_input_boolean_name: Adaptieve verlichting
+      - type: horizontal-stack
+        cards:
+        - type: 'custom:button-card'
+          template: card_input_boolean
+          entity: switch.adaptive_lighting_sleep_mode_hallway
+          variables:
+            ulm_card_input_boolean_name: Nacht modus

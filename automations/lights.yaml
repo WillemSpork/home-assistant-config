@@ -9,12 +9,12 @@
 
 - alias: 'Lights: Adaptive Lighting TV Mode Control'
   description: 'Control the sleep mode for adaptive lighting based on media player state'
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: media_player.woonkamer
-    - platform: state
+    - trigger: state
       entity_id: input_boolean.tv_mode
-  condition:
+  conditions:
     - condition: or
       conditions:
         - condition: state
@@ -31,7 +31,7 @@
         - condition: template
           value_template: >
             {{ states('sensor.time') <= states('input_datetime.end_tvmodus')[0:5] }}
-  action:
+  actions:
     - choose:
         - conditions:
             - condition: state
@@ -61,6 +61,8 @@
                 entity_id: switch.adaptive_lighting_sleep_mode_living_room
   mode: single
 
+
+
 #   _  ___ _       _                
 #  | |/ (_) |     | |               
 #  | ' / _| |_ ___| |__   ___ _ __  
@@ -70,50 +72,50 @@
 #
 
 - alias: "Lights: turn on kitchen"
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: binary_sensor.activity_in_kitchen
       to: 'on'
-  condition:
+  conditions:
     - condition: state
       entity_id: input_boolean.cooking_mode
       state: 'off'
-  action:
+  actions:
     - service: light.turn_on
       entity_id: light.keuken
 
 - alias: "Lights: turn off kitchen"
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: binary_sensor.activity_in_kitchen
       to: 'off'
-  condition:
+  conditions:
     - condition: state
       entity_id: input_boolean.cooking_mode
       state: 'off'
-  action:
+  actions:
     - service: light.turn_off
       entity_id: light.keuken
 
 - alias: "Button: Keuken Mode Automation"
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: sensor.kitchen_button_action
       to: 'single'
-  action:
+  actions:
     - service: input_boolean.toggle
       target:
         entity_id: input_boolean.cooking_mode
 
 - alias: "Light: Cooking Mode Lighting Control"
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: input_boolean.cooking_mode
       to: 'on'
-    - platform: state
+    - trigger: state
       entity_id: input_boolean.cooking_mode
       to: 'off'
-  action:
+  actions:
     - choose:
         - conditions:
             - condition: state
@@ -150,22 +152,25 @@
 #                                  |___/ 
 
 - alias: "Lights: turn on when motion detected in the hallway"
-  trigger:
-    - platform: state
+  triggers:
+    - trigger: state
       entity_id: binary_sensor.activity_in_hallway
       to: 'on'
-  action:
+  actions:
     - service: light.turn_on
       entity_id: light.gang
 
 - alias: "Lights: turn off when motion detected in the hallway"
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.activity_in_hallway
-    to: 'off'
-  action:
-  - service: light.turn_off
-    entity_id: light.gang
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.activity_in_hallway
+      to: 'off'
+  actions:
+    - service: light.turn_off
+      entity_id: light.gang
+
+
+
 
 #  __          __           _           _          
 #  \ \        / /          | |         | |         
@@ -175,19 +180,22 @@
 #      \/  \/ \__,_|_|  \__,_|_|  \___/|_.__/ \___|
                                                  
 - alias: "Lights: turn off when stopped motion detected in the hallway"
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.activity_in_hallway
-    to: 'off'
-    for:
-      minutes: 12
-  condition:
+  triggers:
+    - trigger: state
+      entity_id: binary_sensor.activity_in_hallway
+      to: 'off'
+      for:
+        minutes: 12
+  conditions:
     - condition: state
       entity_id: light.inloopkast
       state: 'on'
-  action:
-  - service: light.turn_off
-    entity_id: light.inloopkast
+  actions:
+    - service: light.turn_off
+      entity_id: light.inloopkast
+
+
+
 
 #   ____           _                           
 #  |  _ \         | |                          
@@ -197,20 +205,20 @@
 #  |____/ \___|\__,_|_|  \___/ \___/|_| |_| |_|
                                              
 # - alias: "Lights: turn on bedroom"
-#   trigger:
-#     - platform: state
+#   triggers:
+#     - trigger: state
 #       entity_id: binary_sensor.someone_in_bedroom
 #       to: 'on'
-#   action:
+#   actions:
 #     - service: light.turn_on
 #       entity_id: light.slaapkamer
 
 # - alias: "Lights: turn off bedroom"
-#   trigger:
-#     - platform: state
+#   triggers:
+#     - trigger: state
 #       entity_id: binary_sensor.someone_in_bedroom
 #       to: 'off'
-#   action:
+#   actions:
 #     - delay: '00:00:30'
 #     - service: light.turn_off
 #       entity_id: light.slaapkamer

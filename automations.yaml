@@ -1,43 +1,3 @@
-- id: '1697756095215'
-  alias: Gang beweging
-  description: ''
-  use_blueprint:
-    path: homeassistant/motion_light.yaml
-    input:
-      motion_entity: binary_sensor.gang_sensor_motion
-      light_target:
-        area_id: gang
-- id: kitchen_motion_light
-  alias: Keuken Bewegingslicht
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.keuken_sensor_motion
-    to: 'on'
-  - platform: state
-    entity_id: binary_sensor.keuken_sensor_motion
-    to: 'off'
-    for:
-      minutes: 2
-  action:
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: binary_sensor.keuken_sensor_motion
-        state: 'on'
-      sequence:
-      - service: light.turn_on
-        target:
-          entity_id: light.keuken
-        data: {}
-    - conditions:
-      - condition: state
-        entity_id: binary_sensor.keuken_sensor_motion
-        state: 'off'
-      sequence:
-      - service: light.turn_off
-        target:
-          entity_id: light.keuken
-        data: {}
 - alias: Flash Red
   trigger:
   - platform: state
@@ -160,97 +120,6 @@
   - service: light.turn_off
     entity_id: all
   mode: single
-- id: '1699825461750'
-  alias: Lichten Aan bij Beweging na Thuiskomst
-  description: Zet lichten aan bij eerste bewegingsdetectie nadat Willem of Nina thuis
-    is gekomen
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.gang_sensor_motion
-    to: 'on'
-  - platform: state
-    entity_id:
-    - person.willem_spork
-    - person.nina_juffermans
-    to: home
-  condition:
-  - condition: state
-    entity_id:
-    - person.willem_spork
-    - person.nina_juffermans
-    state: home
-  action:
-  - service: light.turn_on
-    target:
-      entity_id:
-      - light.gang
-      - light.woonkamer
-      - light.kantoor
-    data: {}
-  - service: fan.turn_on
-    data:
-      preset_mode: auto
-    target:
-      entity_id: fan.huiskamer
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 30
-      milliseconds: 0
-  - service: tts.google_say
-    data:
-      cache: false
-      entity_id:
-      - media_player.slaapkamer_2
-      - media_player.slaapkamer
-      message: Welkom thuis! De temperatuur in huis is {{ states('sensor.gem_woon')
-        }} graden.
-  mode: single
-- id: '1699832305431'
-  alias: Temperatuurgebaseerde Welkomstnotificatie
-  description: Stuurt een aangepaste welkomstnotificatie gebaseerd op de temperatuur
-    in de woonkamer
-  trigger:
-  action:
-  - service: notify.willem
-    data:
-      message: "{% set temp = states('sensor.gem_woon') | float %} {% if temp < 14
-        %}\n  Welkom terug. Het is erg koud in huis! Ik ga het snel opwarmen naar
-        18 graden.\n{% elif temp < 18 %}\n  Welkom thuis. De temperatuur is {{ temp
-        }} graden. De kachel is aan het opwarmen naar 18 graden.\n{% else %}\n  Welkom
-        thuis.\n{% endif %}\n"
-  mode: single
-- id: '1699833072987'
-  alias: Als iedereen van huis is
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - group.persons
-    to: not_home
-  condition:
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: person.nina_juffermans
-      state: not_home
-    - condition: state
-      entity_id: person.willem_spork
-      state: not_home
-  action:
-  - service: fan.turn_off
-    data: {}
-    target:
-      area_id: slaapkamer
-  - service: fan.turn_off
-    data: {}
-    target:
-      area_id: woonkamer
-  - service: input_boolean.turn_on
-    data: {}
-    target:
-      entity_id: input_boolean.afwezig_modus
-  mode: single
 - id: '1700000000000'
   alias: Speel Geselecteerd Radiostation
   description: Speelt het geselecteerde radiostation af in kantoor
@@ -271,12 +140,13 @@
       media_content_type: music
   mode: single
 - id: standard_theme
-  alias: Standaard thema selecteren bij herstart
-  initial_state: 'true'
-  trigger:
-    platform: homeassistant
-    event: start
-  action:
-    service: frontend.set_theme
-    data:
+  alias: 'System: standaard thema selecteren bij herstart'
+  description: ''
+  triggers:
+  - event: start
+    trigger: homeassistant
+  actions:
+  - data:
       name: minimalist-ios-tapbar
+    action: frontend.set_theme
+  initial_state: 'true'

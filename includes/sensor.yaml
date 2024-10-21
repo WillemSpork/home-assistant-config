@@ -1,11 +1,11 @@
-#  __          ___ _ _                   _____                  _    
-#  \ \        / (_) | |                 / ____|                | |   
+#  __          ___ _ _                   _____                  _
+#  \ \        / (_) | |                 / ____|                | |
 #   \ \  /\  / / _| | | ___ _ __ ___   | (___  _ __   ___  _ __| | __
 #    \ \/  \/ / | | | |/ _ \ '_ ` _ \   \___ \| '_ \ / _ \| '__| |/ /
-#     \  /\  /  | | | |  __/ | | | | |  ____) | |_) | (_) | |  |   < 
+#     \  /\  /  | | | |  __/ | | | | |  ____) | |_) | (_) | |  |   <
 #      \/  \/   |_|_|_|\___|_| |_| |_| |_____/| .__/ \___/|_|  |_|\_\
-#                                             | |                    
-#                                             |_|                    
+#                                             | |
+#                                             |_|
 
 #  _____                    _       _
 # |_   _|__ _ __ ___  _ __ | | __ _| |_ ___    ___  ___ _ __  ___  ___  _ __ ___
@@ -13,7 +13,6 @@
 #   | |  __/ | | | | | |_) | | (_| | ||  __/  \__ \  __/ | | \__ \ (_) | |  \__ \
 #   |_|\___|_| |_| |_| .__/|_|\__,_|\__\___|  |___/\___|_| |_|___/\___/|_|  |___/
 #                    |_|
-
 
 - platform: template
   sensors:
@@ -24,24 +23,22 @@
         {% set keuken = states('sensor.keuken_sensor_temperature') | float %}
         {% set gang = states('sensor.gang_sensor_temperature') | float %}
         {{ ((keuken + gang) / 2) | round(1, default=0) }}
-    
+
     average_temperature_living:
       friendly_name: "Gemiddelde Temperatuur Woonkamer"
       unit_of_measurement: "°C"
       value_template: >
-        {% set kantoor = states('sensor.kantoor_temperatuur') | float %}
         {% set woonkamer = states('sensor.woonkamer_temperatuur') | float %}
-        {{ ((kantoor + woonkamer) / 2) | round(1, default=0) }}
+        {{ ((kantoor + woonkamer) / 1) | round(1, default=0) }}
 
     average_temperature:
       friendly_name: "Gemiddelde Temperatuur"
       unit_of_measurement: "°C"
       value_template: >
-        {% set kantoor = states('sensor.kantoor_temperatuur') | float %}
         {% set woonkamer = states('sensor.woonkamer_temperatuur') | float %}
         {% set keuken = states('sensor.keuken_sensor_temperature') | float %}
         {% set gang = states('sensor.gang_sensor_temperature') | float %}
-        {{ ((kantoor + woonkamer + keuken + gang) / 4) | round(1, default=0) }}
+        {{ ((kantoor + woonkamer + keuken + gang) / 3) | round(1, default=0) }}
 
     any_lights_on:
       friendly_name: "Aantal Lampen Aan"
@@ -51,7 +48,7 @@
 
     tado_slaapkamer_temperatuur:
       friendly_name: "Slaapkamer Temperatuur"
-      unit_of_measurement: '°C'
+      unit_of_measurement: "°C"
       value_template: "{{ state_attr('climate.slaapkamer', 'current_temperature') }}"
 
     nina_in_home_location:
@@ -83,15 +80,14 @@
 
 - platform: time_date
   display_options:
-    - 'time'
-
+    - "time"
 
 #ESPprecense > Willem (Phone)
 
 - platform: mqtt_room
   device_id: "willem_s_iphone"
-  name: 'iphone_willem_ble'
-  state_topic: 'espresense/devices/willem_s_iphone'
+  name: "iphone_willem_ble"
+  state_topic: "espresense/devices/willem_s_iphone"
   timeout: 5
   away_timeout: 120
 
@@ -99,8 +95,8 @@
 
 - platform: mqtt_room
   device_id: "nina_s_iphone"
-  name: 'iphone_nina_ble'
-  state_topic: 'espresense/devices/nina_s_iphone'
+  name: "iphone_nina_ble"
+  state_topic: "espresense/devices/nina_s_iphone"
   timeout: 5
   away_timeout: 120
 
@@ -125,7 +121,7 @@
 - platform: rest
   name: FR24 Feeder
   resource: !secret flightradar_resource_ip
-  value_template: '{{ value_json.feed_alias }}'
+  value_template: "{{ value_json.feed_alias }}"
   method: GET
   scan_interval: 60
   json_attributes:
@@ -147,29 +143,29 @@
     fr24_feeder_aircraft_tracked:
       friendly_name: Aircraft Tracked
       value_template: '{{ states.sensor.fr24_feeder.attributes["d11_map_size"] | round(0) }}'
-      unit_of_measurement: 'aircraft'
+      unit_of_measurement: "aircraft"
     fr24_feeder_aircraft_uploaded:
       friendly_name: Total Aircraft Uploaded
       value_template: '{{ states.sensor.fr24_feeder.attributes["feed_num_ac_tracked"] | round(0) }}'
-      unit_of_measurement: 'aircraft'
+      unit_of_measurement: "aircraft"
     fr24_feeder_version:
       friendly_name: Version
       value_template: '{{ states.sensor.fr24_feeder.attributes["build_version"] }}'
     feed_num_ac_adsb_tracked:
       friendly_name: ADSB Tracked
       value_template: '{{ states.sensor.fr24_feeder.attributes["feed_num_ac_adsb_tracked"] | round(0) }}'
-      unit_of_measurement: 'aircraft'     
+      unit_of_measurement: "aircraft"
     feed_num_ac_non_adsb_tracked:
       friendly_name: NON-ADSB Tracked
       value_template: '{{ states.sensor.fr24_feeder.attributes["feed_num_ac_non_adsb_tracked"] | round(0) }}'
-      unit_of_measurement: 'aircraft'    
+      unit_of_measurement: "aircraft"
     mlat_ok:
       friendly_name: MLAT Status
-      value_template: '{{ states.sensor.fr24_feeder.attributes["mlat-ok"] }}'            
+      value_template: '{{ states.sensor.fr24_feeder.attributes["mlat-ok"] }}'
     mlat_number_seen:
       friendly_name: MLAT number seen
       value_template: '{{ states.sensor.fr24_feeder.attributes["mlat-number-seen"] | round(0) }}'
-      unit_of_measurement: 'aircraft'
+      unit_of_measurement: "aircraft"
 
 #Fitbit
 - platform: fitbit

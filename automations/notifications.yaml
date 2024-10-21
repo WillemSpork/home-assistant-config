@@ -3,13 +3,13 @@
   triggers:
     - trigger: state
       entity_id: person.willem_spork
-      from: 'Office'
+      from: "Office"
   conditions:
     - condition: time
-      after: '15:00:00'
-      before: '23:00:00'
+      after: "15:00:00"
+      before: "23:00:00"
   actions:
-    - service: notify.all_iphones
+    - action: notify.all_iphones
       data:
         title: "Work"
         message: "Willem vertrekt van kantoor! ♥️🎉"
@@ -18,13 +18,13 @@
   triggers:
     - trigger: state
       entity_id: person.nina_juffermans
-      from: 'Office'
+      from: "Office"
   conditions:
     - condition: time
-      after: '15:00:00'
-      before: '23:00:00'
+      after: "15:00:00"
+      before: "23:00:00"
   actions:
-    - service: notify.all_iphones
+    - action: notify.all_iphones
       data:
         title: "Work"
         message: "Nina vertrekt van kantoor! ♥️🎉"
@@ -39,12 +39,32 @@
       entity_id: input_boolean.front_door_open_warning
       state: "on"
   actions:
-    - service: notify.willem
+    - action: notify.willem
       data:
         title: Security
         message: Front door opened!
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id: input_boolean.front_door_open_warning
+
+# Household notifications
+
+- alias: "Notifications: put the trash outside"
+  description: "Herinnering om de afvalbak naar buiten te zetten op maandagavond om 21:00"
+  triggers:
+    - trigger: time
+      at: "21:00:00"
+  conditions:
+    - condition: time
+      weekday:
+        - mon
+  actions:
+    - action: notify.all_iphones
+      data:
+        title: "🗑️ Afvalherinnering"
+        message: "Denk eraan om de afvalbak buiten te zetten!"
+  mode: single
+
+# Hourly mantra's
 
 - alias: "Notifications: Hourly Mantra Notification for Nina"
   triggers:
@@ -54,7 +74,7 @@
     - condition: template
       value_template: "{{ not is_state('input_select.sleep_mode', 'total') }}"
   actions:
-    - service: notify.nina
+    - action: notify.nina
       data:
         title: "Hourly Mantra ❤️"
         message: >
@@ -127,7 +147,7 @@
     - condition: template
       value_template: "{{ not is_state('input_select.sleep_mode', 'total') }}"
   actions:
-    - service: notify.willem
+    - action: notify.willem
       data:
         title: "Hourly Mantra 💪"
         message: >

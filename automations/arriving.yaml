@@ -1,0 +1,33 @@
+- alias: "Arriving: when motion detected in hallway after returning home, turn on living room and office lights"
+  triggers:
+    # Trigger wanneer een van de personen thuiskomt
+    - platform: state
+      entity_id:
+        - person.willem_spork
+        - person.nina_juffermans
+      to: "home"
+
+  conditions:
+    # Voorwaarde: Minstens één persoon is nu thuis
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: person.willem_spork
+          state: "home"
+        - condition: state
+          entity_id: person.nina_juffermans
+          state: "home"
+
+  actions:
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.activity_in_hallway
+          from: "off"
+          to: "on"
+      timeout: "00:05:00"
+      continue_on_timeout: false
+    - service: light.turn_on
+      target:
+        entity_id:
+          - light.woonkamer
+          - light.kantoor

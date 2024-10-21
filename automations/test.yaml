@@ -1,21 +1,27 @@
-# Before I add automations, I first test them here
-
 - alias: "Test: notify groups"
   triggers:
     - trigger: state
       entity_id: input_boolean.test_mode
       to: "on"
   actions:
-    - service: notify.nina
-      data:
-        title: Test
-        message: Willem voert een test uit.
-    - service: input_boolean.turn_off
+    - action: input_boolean.turn_off
       entity_id: input_boolean.test_mode
-    - service: tts.elevenlabstts
+    - action: tts.speak # De moderne TTS-service
+      target:
+        entity_id: tts.elevenlabs_tts # Specifieke entiteit voor Google Translate Nederlands
       data:
-        cache: false
-        entity_id:
-          - media_player.slaapkamer_2
+        media_player_entity_id:
+          - media_player.slaapkamer_2 # De media players waar de spraak op afspeelt
           - media_player.slaapkamer
-        message: Willem voert een test uit!
+          - media_player.sonos
+        message: >
+          ai ai ai ai ai ai ai ai ai
+        cache: false # Optioneel, zet dit op false om geen caching te gebruiken
+        options:
+          voice: Jessica
+          stability: 1
+          similarity: 1
+          style: 0.3 # Only supported in eleven_multilingual_v2
+          use_speaker_boost: "true" # Only supported in eleven_multilingual_v2
+          model: eleven_multilingual_v2
+          optimize_streaming_latency: 3

@@ -1,9 +1,18 @@
+#   _                      _             
+#  | |                    (_)            
+#  | |     ___  __ ___   ___ _ __   __ _ 
+#  | |    / _ \/ _` \ \ / / | '_ \ / _` |
+#  | |___|  __/ (_| |\ V /| | | | | (_| |
+#  |______\___|\__,_| \_/ |_|_| |_|\__, |
+#                                   __/ |
+#                                  |___/ 
+
 - alias: "Leaving: when everybody leaves the house turn off all lights"
-  triggers:
-    - trigger: state
+  trigger:
+    - platform: state
       entity_id: group.persons
       to: "not_home"
-  actions:
+  action:
     - service: light.turn_off
       target:
         entity_id: all

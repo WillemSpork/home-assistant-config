@@ -8,13 +8,6 @@ cards:
         template: chip_back
         variables:
           ulm_chip_back_path: /ui-lovelace-minimalist/home
-      - type: "custom:button-card"
-        template: chip_icon_double_state
-        variables:
-          ulm_chip_icon_double_state_icon: "⚒️"
-          ulm_chip_icon_double_state_entity_1: sensor.minecraft_server_spelers_online
-          ulm_chip_icon_double_state_entity_2: sensor.minecraft_server_vertraging
-          ulm_chip_navigate_path: /lovelace-minimalist-ui/0
 
   - type: horizontal-stack
     cards:

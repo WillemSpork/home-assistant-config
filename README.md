@@ -172,55 +172,55 @@
     <tbody>
         <tr>
             <td>AdGuard Home</td>
-            <td>[link](https://github.com/hassio-addons/addon-adguard-home)</td>
+            <td><a href="https://github.com/hassio-addons/addon-adguard-home">link</a></td>
         </tr>
         <tr>
             <td>AirCast</td>
-            <td>link</td>
+            <td><a href="https://github.com/hassio-addons/addon-aircast/">link</a></td>
         </tr>
         <tr>
             <td>Cloudflared</td>
-            <td>link</td>
+            <td><a href="https://github.com/brenner-tobias/addon-cloudflared">link</a></td>
         </tr>
         <tr>
             <td>MariaDB</td>
-            <td>link</td>
+            <td></td>
         </tr>
         <tr>
             <td>Matter Server</td>
-            <td>link</td>
+            <td></td>
         </tr>
         <tr>
             <td>Mosquitto Broker</td>
-            <td>link</td>
+            <td></td>
         </tr>
         <tr>
             <td>Node-RED</td>
-            <td>link</td>
+            <td><a href="https://github.com/hassio-addons/addon-node-red">link</a></td>
         </tr>
         <tr>
             <td>PS5 MQTT</td>
-            <td>link</td>
+            <td><a href="https://github.com/FunkeyFlo/ps5-mqtt">link</a></td>
         </tr>
         <tr>
             <td>Studio Code Server</td>
-            <td>link</td>
+            <td><a href="https://github.com/hassio-addons/addon-vscode">link</a></td>
         </tr>
         <tr>
             <td>Terminal & SSH</td>
-            <td>link</td>
+            <td></td>
         </tr>
         <tr>
             <td>UniFi Network Application</td>
-            <td>link</td>
+            <td><a href="https://github.com/hassio-addons/addon-unifi">link</a></td>
         </tr>
         <tr>
             <td>WireGuard</td>
-            <td>link</td>
+            <td><a href="https://github.com/hassio-addons/addon-wireguard">link</a></td>
         </tr>
         <tr>
             <td>Zigbee2MQTT</td>
-            <td>link</td>
+            <td><a href="https://hub.docker.com/repository/docker/zigbee2mqtt/zigbee2mqtt-amd64">link</a></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

@@ -47,3 +47,4 @@ fitbit.conf
 .bash_profile
 .tmux.conf
 .gitconfig
+automations/mantras.yaml

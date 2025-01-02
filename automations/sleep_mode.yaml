@@ -7,3 +7,45 @@
 #                     | |                              
 #                     |_|                              
 
+- alias: "Sleep mode: switch sleep_mode on/off based on input_boolean"
+  description: "Turn switches on when sleep mode is enabled and turn them off when disabled"
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      from: "off"
+      to: "on"
+    - platform: state
+      entity_id: input_boolean.sleep_mode
+      from: "on"
+      to: "off"
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.sleep_mode
+              state: "on"
+          sequence:
+            - service: switch.turn_on
+              target:
+                entity_id:
+                  - switch.adaptive_lighting_sleep_mode_bedroom
+                  - switch.adaptive_lighting_sleep_mode_hallway
+                  - switch.adaptive_lighting_sleep_mode_kitchen
+                  - switch.adaptive_lighting_sleep_mode_living_room
+                  - switch.adaptive_lighting_sleep_mode_office
+                  - switch.adaptive_lighting_sleep_mode_wardrobe
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.sleep_mode
+              state: "off"
+          sequence:
+            - service: switch.turn_off
+              target:
+                entity_id:
+                  - switch.adaptive_lighting_sleep_mode_bedroom
+                  - switch.adaptive_lighting_sleep_mode_hallway
+                  - switch.adaptive_lighting_sleep_mode_kitchen
+                  - switch.adaptive_lighting_sleep_mode_living_room
+                  - switch.adaptive_lighting_sleep_mode_office
+                  - switch.adaptive_lighting_sleep_mode_wardrobe

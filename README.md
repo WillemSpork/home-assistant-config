@@ -2,7 +2,7 @@
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/WillemSpork/home-assistant-config)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/WillemSpork/home-assistant-config/main)
-[![HA Version](https://img.shields.io/badge/Running%20Home%20Asssistant-2024.9.2%20-darkblue)](https://github.com/home-assistant/core/releases)
+[![HA Version](https://img.shields.io/badge/Running%20Home%20Asssistant-2024.12.3%20-darkblue)](https://github.com/home-assistant/core/releases)
 
 ## My Devices
 
@@ -25,6 +25,10 @@
         <tr>
             <td>Philips Hue Dimmer switch</td>
             <td>2</td>
+        </tr>
+        <tr>
+            <td>Nodon Zigbee Relais</td>
+            <td>1</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -142,6 +146,83 @@
             <td>1</td>
         </tr>
         <tr>
+            <td>Dyson Purifier humidify+cool</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Dyson Purifier cool</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+
+## Add-ons & plugins
+
+<table>
+    <thead>
+        <tr>
+            <th>Add-ons</th>
+            <th>URL</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>AdGuard Home</td>
+            <td>[link](https://github.com/hassio-addons/addon-adguard-home)</td>
+        </tr>
+        <tr>
+            <td>AirCast</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Cloudflared</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>MariaDB</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Matter Server</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Mosquitto Broker</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Node-RED</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>PS5 MQTT</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Studio Code Server</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Terminal & SSH</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>UniFi Network Application</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>WireGuard</td>
+            <td>link</td>
+        </tr>
+        <tr>
+            <td>Zigbee2MQTT</td>
+            <td>link</td>
+        </tr>
+        <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -150,10 +231,10 @@
 
 ## Todo
 
-- Fix: lights in office won't respond to 'turn off' automations
-- Fix: Host (Intel NUC) needs a restart job every night
+- Fix: lights in office won't respond to 'turn off' automations from sleepmode
+- ~~Fix: Host (Intel NUC) needs a restart job every night~~ (no it doesn't)
 - Add: ESP32 and pressure sensors in bed for sleepmode ([link](https://www.homeautomationguy.io/blog/making-my-own-bed-sensor))
-- Add: Reset states (sleepmode, etc) every night
+- ~~Add: Reset states (sleepmode, etc) every night~~ (done)
 
 
 ## Thanks to

@@ -27,3 +27,9 @@
   longitude: !secret longitude_crete
   radius: 150000
   icon: mdi:island
+
+- name: Rijksmuseum
+  latitude: !secret latitude_rijksmuseum
+  longitude: !secret longitude_rijksmuseum
+  radius: 300
+  icon: mdi:bank

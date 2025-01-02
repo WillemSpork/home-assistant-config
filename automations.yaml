@@ -64,20 +64,20 @@
 - id: '1698456877330'
   alias: Welterusten
   description: ''
-  trigger:
+  triggers:
   - device_id: ef8c38a85b323b90542b3d9ec14251d9
     domain: hue
-    platform: device
     type: initial_press
     subtype: 3
     unique_id: 52ae4513-474b-4d98-b642-5946e34fec7d
-  condition: []
-  action:
-  - service: fan.turn_on
-    data:
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       percentage: 20
     target:
       device_id: 734621e31d54471b4afe95c8ea6feb8e
+    action: fan.turn_on
   - delay:
       hours: 0
       minutes: 0
@@ -92,11 +92,11 @@
       minutes: 0
       seconds: 1
       milliseconds: 0
-  - service: fan.oscillate
-    data:
+  - data:
       oscillating: true
     target:
       device_id: 734621e31d54471b4afe95c8ea6feb8e
+    action: fan.oscillate
   - device_id: ed1577b84a5e787d05b4a1cf3bf1b1b7
     domain: climate
     entity_id: 43b52ea144d1c384391b5a5d3b34d6b0
@@ -117,8 +117,12 @@
     entity_id: b19e1f31ca5ccee59ca1a30185d84575
     type: set_preset_mode
     preset_mode: auto
-  - service: light.turn_off
-    entity_id: all
+  - entity_id: all
+    action: light.turn_off
+  - action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.sleep_mode
+    data: {}
   mode: single
 - id: '1700000000000'
   alias: Speel Geselecteerd Radiostation
@@ -150,3 +154,121 @@
       name: minimalist-ios-tapbar
     action: frontend.set_theme
   initial_state: 'true'
+- id: '1729727657788'
+  alias: 'Test: PS5 automation'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.ps5_668_activity
+    attribute: activity
+  - trigger: state
+    entity_id:
+    - input_boolean.tv_mode
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.ps5_668_activity
+      attribute: activity
+      state: playing
+    - condition: state
+      entity_id: input_boolean.tv_mode
+      state: 'on'
+  - condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ states(''sensor.time'') >= states(''input_datetime.start_tvmodus'')[0:5]
+        and states(''sensor.time'') < ''24:00'' }}'
+    - condition: template
+      value_template: '{{ states(''sensor.time'') >= ''00:00'' and states(''sensor.time'')
+        <= states(''input_datetime.end_tvmodus'')[0:5] }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.tv_mode
+        state: 'on'
+      - condition: state
+        entity_id: sensor.ps5_668_activity
+        attribute: activity
+        state: playing
+      sequence:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.adaptive_lighting_adapt_brightness_living_room
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_boolean.tv_mode
+          state: 'off'
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: sensor.ps5_668_activity
+            attribute: activity
+            state: playing
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.adaptive_lighting_sleep_mode_living_room
+  mode: single
+- id: '1731366389356'
+  alias: Button Living Room Actions
+  description: ''
+  triggers:
+  - entity_id: sensor.living_button_action
+    trigger: state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: sensor.living_button_action
+        state: 1_single_press
+      sequence:
+      - target:
+          area_id: woonkamer
+        action: light.turn_on
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: sensor.living_button_action
+        state: 2_long_press
+      sequence:
+      - target:
+          area_id: kantoor
+        action: light.toggle
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: sensor.living_button_action
+        state: 1_long_press
+      sequence:
+      - target:
+          area_id: keuken
+        action: light.turn_off
+        data: {}
+    default: []
+  mode: single
+- id: '1731367575914'
+  alias: 'Button Living Room: toggle tv mode'
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 32679cd523b0e0d77da0be6322db3aba
+    type: action
+    subtype: 1_initial_press
+    trigger: device
+  conditions: []
+  actions:
+  - action: input_boolean.toggle
+    target:
+      entity_id: input_boolean.tv_mode
+    data: {}
+  mode: single

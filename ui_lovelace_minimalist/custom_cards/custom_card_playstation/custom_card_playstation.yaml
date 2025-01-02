@@ -1,0 +1,48 @@
+---
+card_ps5:
+  template:
+    - "icon_info_bg"
+    - "ulm_translation_engine"
+  label: "[[[ return variables.ulm_translation_state ]]]"
+  styles:
+    icon:
+      - color: "rgba(var(--color-theme),0.2)"
+    img_cell:
+      - background-color: "rgba(var(--color-theme),0.05)"
+  state:
+    # Gebruik het attribuut 'power' in plaats van de hoofdwaarde van de sensor
+    - operator: template
+      value: "[[[ return entity.attributes.power === 'AWAKE'; ]]]"
+      styles:
+        icon:
+          - color: "rgba(var(--color-blue),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-blue), 0.2)"
+    - operator: template
+      value: "[[[ return entity.attributes.power === 'STANDBY'; ]]]"
+      styles:
+        icon:
+          - color: "rgba(var(--color-theme),0.2)"
+        img_cell:
+          - background-color: "rgba(var(--color-theme),0.05)"
+    - operator: "template"
+      value: "[[[ return entity.state != 'unknown'; ]]]"
+      name: "[[[ return entity.attributes.title_name || 'No title'; ]]]"
+      label: "[[[ return entity.attributes.activity || 'No activity'; ]]]"
+      styles:
+        label:
+          - color: "white"
+          - filter: "opacity(100%)"
+        img_cell:
+          - background-color: "none"
+        icon:
+          - color: "white"
+        name:
+          - color: "white"
+        card:
+          - background-blend-mode: "multiply"
+          - background: >
+              [[[
+                var image = entity.attributes.title_image || '';
+                return image ? 'center / cover url(' + image + ') rgba(0, 0, 0, 0.15)' : '';
+              ]]]

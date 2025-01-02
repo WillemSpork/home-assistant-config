@@ -7,7 +7,8 @@
 #                           __/ |
 #                          |___/
 
-- alias: "Lights: Adaptive Lighting TV Mode Control"
+- id: '8276345345'
+  alias: "Lights: Adaptive Lighting TV Mode Control"
   description: "Control the sleep mode for adaptive lighting based on media player state"
   triggers:
     - trigger: state
@@ -60,6 +61,71 @@
               target:
                 entity_id: switch.adaptive_lighting_sleep_mode_living_room
   mode: single
+
+- id: '2145243512'
+  alias: "Lights: PS5 switch adaptive lighting"  
+  description: ""
+  mode: single
+  triggers:
+    - trigger: state
+      entity_id:
+        - sensor.ps5_668_activity
+      attribute: activity
+    - trigger: state
+      entity_id:
+        - input_boolean.game_mode
+  conditions:
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: sensor.ps5_668_activity
+          attribute: activity
+          state: playing
+        - condition: state
+          entity_id: input_boolean.game_mode
+          state: "on"
+    - condition: or
+      conditions:
+        - condition: template
+          value_template: >
+            {{ states('sensor.time') >= states('input_datetime.start_tvmodus')[0:5] }}
+        - condition: template
+          value_template: >
+            {{ states('sensor.time') <= states('input_datetime.end_tvmodus')[0:5] }}
+  actions:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.game_mode
+              state: "on"
+            - condition: state
+              entity_id: sensor.ps5_668_activity
+              attribute: activity
+              state: playing
+          sequence:
+            - action: switch.turn_on
+              metadata: {}
+              data: {}
+              target:
+                entity_id: switch.adaptive_lighting_sleep_mode_living_room
+        - conditions:
+            - condition: or
+              conditions:
+                - condition: state
+                  entity_id: input_boolean.game_mode
+                  state: "off"
+                - condition: not
+                  conditions:
+                    - condition: state
+                      entity_id: sensor.ps5_668_activity
+                      attribute: activity
+                      state: playing
+          sequence:
+            - action: switch.turn_off
+              metadata: {}
+              data: {}
+              target:
+                entity_id: switch.adaptive_lighting_sleep_mode_living_room
 
 #   _  ___ _       _
 #  | |/ (_) |     | |

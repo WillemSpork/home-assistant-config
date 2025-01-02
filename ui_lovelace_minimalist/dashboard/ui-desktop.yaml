@@ -2,7 +2,7 @@
 button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"
 
 title: "UI Lovelace Minimalist"
-theme: "minimalist-ios-tapbar"
+theme: "minimalist-desktop"
 background: "var(--background-image)"
 # views: !include_dir_merge_list "views/"
 views:
@@ -11,7 +11,7 @@ views:
   - !include "views/office.yaml"
   - !include "views/bedroom.yaml"
   - !include "views/kitchen.yaml"
-# - !include "views/bathroom.yaml"
+  - !include "views/bathroom.yaml"
   - !include "views/hallway.yaml"
   - !include "views/wardrobe.yaml"
   - !include "views/lab.yaml"

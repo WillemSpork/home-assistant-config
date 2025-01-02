@@ -42,7 +42,7 @@
 - alias: "Security: front door has been open for more than 5 minutes"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.voordeur_deur
+      entity_id: binary_sensor.gang_voordeur_deur
       from: "off"
       to: "on"
       for: "00:05:00"
@@ -56,12 +56,12 @@
             sound:
               name: default
               critical: 1
-              volume: 1.0
+              volume: 0.5
 
 - alias: "Security: back door has been open for more than 5 minutes"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.achterdeur_deur
+      entity_id: binary_sensor.keuken_achterdeur_deur
       from: "off"
       to: "on"
       for: "00:05:00"
@@ -75,4 +75,4 @@
             sound:
               name: default
               critical: 1
-              volume: 1.0
+              volume: 0.5

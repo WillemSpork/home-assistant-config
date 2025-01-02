@@ -14,6 +14,7 @@ frontend:
   extra_module_url: /hacsfiles/Bubble-Card/bubble-pop-up.js
 http: !include includes/http.yaml
 # tts: !include includes/tts.yaml
+lovelace: !include includes/lovelace.yaml
 
 # Inputs
 input_boolean: !include includes/input_boolean.yaml

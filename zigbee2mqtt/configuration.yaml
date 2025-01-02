@@ -45,5 +45,8 @@ devices:
     friendly_name: kitchen_button
   '0xbc026efffe7c99bd':
     friendly_name: closet_socket
+  '0x5cc7c1fffed8c861':
+    friendly_name: living_button
   '0x54ef44100091b4d9':
-    friendly_name: bathroom_humidity
+    friendly_name: '0x54ef44100091b4d9'
+blocklist: []

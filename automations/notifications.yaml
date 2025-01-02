@@ -29,10 +29,25 @@
         title: "Work"
         message: "Nina vertrekt van kantoor! ♥️🎉"
 
+- alias: "Work: Nina left Rijksmuseum notification for Willem"
+  triggers:
+    - trigger: state
+      entity_id: person.nina_juffermans
+      from: "Rijksmuseum"
+  conditions:
+    - condition: time
+      after: "15:00:00"
+      before: "23:00:00"
+  actions:
+    - action: notify.all_iphones
+      data:
+        title: "Work"
+        message: "Nina vertrekt van Rijksmuseum! ♥️🎉"
+
 - alias: "Notifications: front door has opened"
   triggers:
     - trigger: state
-      entity_id: binary_sensor.voordeur_deur
+      entity_id: binary_sensor.gang_voordeur_deur
       to: "on"
   conditions:
     - condition: state
@@ -51,17 +66,50 @@
 - alias: "Notifications: put the trash outside"
   description: "Herinnering om de afvalbak naar buiten te zetten op maandagavond om 21:00"
   triggers:
-    - trigger: time
+    - platform: time
       at: "21:00:00"
   conditions:
     - condition: time
       weekday:
         - mon
   actions:
-    - action: notify.all_iphones
+    - service: notify.all_iphones
       data:
         title: "🗑️ Afvalherinnering"
         message: "Denk eraan om de afvalbak buiten te zetten!"
+    - wait_template: "{{ is_state('sensor.willem_in_home_location', 'Kantoor') }}"
+      timeout: "01:00:00"  # Wacht maximaal 1 uur
+      continue_on_timeout: false
+    - delay: "00:00:30"
+    - service: tts.speak  # Gebruik de ElevenLabs TTS-service
+      target:
+        entity_id: tts.elevenlabs_tts  # Specifieke entiteit voor ElevenLabs TTS
+      data:
+        media_player_entity_id:
+          - media_player.slaapkamer  # De media player waar de spraak op afspeelt
+        message: "Vergeet de afvalbak niet buiten te zetten"
+        cache: false  # Optioneel, zet dit op false om geen caching te gebruiken
+        options:
+          voice: Jessica
+          stability: 1
+          similarity: 1
+          style: 0.3  # Alleen ondersteund in eleven_multilingual_v2
+          use_speaker_boost: "true"  # Alleen ondersteund in eleven_multilingual_v2
+          model: eleven_multilingual_v2
+          optimize_streaming_latency: 3
+
+# Game notifications
+- alias: "Notifications: someone logged in to Minecraft"
+  description: "Laat weten of er iemand in de Minecraftserver zit."
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.minecraft_server_spelers_online
+      above: 0
+  action:
+    - service: notify.willem
+      data:
+        title: "👾 Minecraft"
+        message: "Er is iemand online gekomen in de server!"
   mode: single
 
 # Hourly mantra's
@@ -73,6 +121,9 @@
   conditions:
     - condition: template
       value_template: "{{ not is_state('input_select.sleep_mode', 'total') }}"
+    - condition: state
+      entity_id: input_boolean.ninas_mantras
+      state: "on"
   actions:
     - action: notify.nina
       data:
@@ -146,6 +197,9 @@
   conditions:
     - condition: template
       value_template: "{{ not is_state('input_select.sleep_mode', 'total') }}"
+    - condition: state
+      entity_id: input_boolean.willems_mantras
+      state: "on"
   actions:
     - action: notify.willem
       data:

@@ -1,7 +1,7 @@
 {
     "0x54ef441000922df7": {
-        "linkquality": 99,
-        "voltage": 3059,
+        "linkquality": 45,
+        "voltage": 3050,
         "battery": 100,
         "device_temperature": 25,
         "power_outage_count": 19,
@@ -22,10 +22,20 @@
             "latest_version": 587765297
         },
         "update_available": false,
-        "linkquality": 99
+        "linkquality": 90
+    },
+    "0x5cc7c1fffed8c861": {
+        "update": {
+            "state": "idle",
+            "installed_version": 16777249,
+            "latest_version": 16777249
+        },
+        "battery": 83,
+        "linkquality": 39
     },
     "0x54ef44100091b4d9": {
-        "voltage": 3200,
-        "battery": 100
+        "voltage": 2900,
+        "battery": 33,
+        "linkquality": 159
     }
 }

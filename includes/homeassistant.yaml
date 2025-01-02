@@ -21,3 +21,5 @@ customize:
 #Custom icon automations
   automation.security_motion_detected_but_we_are_not_home:
     icon: mdi:alarm-light
+  sensor.buiten_temperatuur:
+    icon: mdi:thermometer

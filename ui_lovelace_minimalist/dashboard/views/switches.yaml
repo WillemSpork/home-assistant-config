@@ -14,22 +14,22 @@ cards:
       cards:
       - type: 'custom:button-card'
         template: card_graph
-        entity: sensor.woonkamer_temperatuur
+        entity: sensor.buiten_temperatuur
         variables:
           ulm_card_graph_color: "var(--google-red)"
           ulm_card_graph_name: Temperatuur
-          ulm_card_graph_entity: sensor.woonkamer_temperatuur
+          ulm_card_graph_entity: sensor.buiten_temperatuur
           ulm_card_graph_type: fill
           ulm_card_graph_hours: 24
           ulm_card_graph_group_by: interval
           ulm_card_graph_line_width: 3
       - type: 'custom:button-card'
         template: card_graph
-        entity: sensor.woonkamer_luchtvochtigheid
+        entity: sensor.buiten_luchtvochtigheid
         variables:
           ulm_card_graph_color: "var(--google-blue)"
           ulm_card_graph_name: Luchtvochtigheid
-          ulm_card_graph_entity: sensor.woonkamer_luchtvochtigheid
+          ulm_card_graph_entity: sensor.buiten_luchtvochtigheid
           ulm_card_graph_type: fill
           ulm_card_graph_hours: 24
           ulm_card_graph_group_by: interval
@@ -78,25 +78,61 @@ cards:
         
     - type: horizontal-stack
       cards:
+
       - type: 'custom:button-card'
         template: card_input_boolean
         entity: input_boolean.tv_mode
         variables:
           ulm_card_input_boolean_name: Televisiemodus
 
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.game_mode
+        variables:
+          ulm_card_input_boolean_name: Gamemodus
+
+    - type: conditional
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity: input_boolean.tv_mode
+              state: "on"
+            - condition: state
+              entity: input_boolean.game_mode
+              state: "on"
+      card:
+          type: horizontal-stack
+          cards:
+          - type: "custom:button-card"
+            template:
+              - card_input_datetime
+            entity: input_datetime.start_tvmodus
+            variables:
+              ulm_card_input_datetime_name: "Begin tijd"
+          - type: "custom:button-card"
+            template:
+              - card_input_datetime
+            entity: input_datetime.end_tvmodus
+            variables:
+              ulm_card_input_datetime_name: "Eind tijd"
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Notificaties
+      label: 'Verschillende notificatie functies'
+
     - type: horizontal-stack
       cards:
-
-      - type: "custom:button-card"
-        template:
-          - card_input_datetime
-        entity: input_datetime.start_tvmodus
+      
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.willems_mantras
         variables:
-          ulm_card_input_datetime_name: "Begin tijd"
+          ulm_card_input_boolean_name: Willem's mantra's
 
-      - type: "custom:button-card"
-        template:
-          - card_input_datetime
-        entity: input_datetime.end_tvmodus
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.ninas_mantras
         variables:
-          ulm_card_input_datetime_name: "Eind tijd"
+          ulm_card_input_boolean_name: Nina's mantra's

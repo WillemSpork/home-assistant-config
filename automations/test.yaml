@@ -11,9 +11,7 @@
         entity_id: tts.elevenlabs_tts # Specifieke entiteit voor Google Translate Nederlands
       data:
         media_player_entity_id:
-          - media_player.slaapkamer_2 # De media players waar de spraak op afspeelt
-          - media_player.slaapkamer
-          - media_player.sonos
+          - media_player.slaapkamer # De media players waar de spraak op afspeelt
         message: >
           ai ai ai ai ai ai ai ai ai
         cache: false # Optioneel, zet dit op false om geen caching te gebruiken

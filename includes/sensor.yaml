@@ -76,6 +76,10 @@
           discharging
         {% endif %}
 
+    buiten_temperatuur:
+      friendly_name: "Temperatuur buiten"
+      unit_of_measurement: "°C"
+      value_template: "{{ state_attr('weather.buienradar', 'temperature') }}"
 #Time
 
 - platform: time_date
@@ -194,3 +198,21 @@
   name: Humidity bathroom derivative
   unit_time: min
   time_window: "00:10:00"
+
+- platform: rest
+  name: Clockify Running
+  resource: https://api.clockify.me/api/v1/workspaces/5b814f62b079872ea1c6ebee/time-entries/status/in-progress
+  method: GET
+  headers:
+    x-api-key: ZGUyOTM5NTItYzA4OC00NzExLTgyYTEtMTg5MDM1YzhiMzhi
+  value_template: "{{ value_json.0.type == 'REGULAR' }}"
+  scan_interval: 60
+
+- platform: rest
+  name: Clockify progress
+  resource: https://api.clockify.me/api/v1/workspaces/5b814f62b079872ea1c6ebee/user/5b814f60b079872ea1c6ebeb/time-entries/in-progress
+  method: GET
+  headers:
+    x-api-key: "ZGUyOTM5NTItYzA4OC00NzExLTgyYTEtMTg5MDM1YzhiMzhi"
+  value_template: "{{ value_json is not none }}"
+  scan_interval: 60

@@ -1,0 +1,9 @@
+mode: storage
+# Add yaml dashboards
+dashboards:
+  lovelace-yaml:
+    mode: yaml
+    title: Desktop
+    icon: mdi:monitor
+    show_in_sidebar: true
+    filename: ui_lovelace_minimalist/dashboard/ui-desktop.yaml

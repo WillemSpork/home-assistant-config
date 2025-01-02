@@ -41,14 +41,14 @@
       friendly_name: Activity in the kitchen
       value_template: >
         {{ is_state("binary_sensor.keuken_sensor_motion", "on")
-            or is_state("binary_sensor.achterdeur_deur", "on") }}
+            or is_state("binary_sensor.keuken_achterdeur_deur", "on") }}
       delay_off: "00:02:00"
       icon_template: "mdi:motion-sensor{{ iif(is_state('binary_sensor.activity_in_kitchen', 'off'), '-off', '') }}"
 
     activity_in_hallway:
       friendly_name: Activity in the hallway
       value_template: >
-        {{ is_state("binary_sensor.gang_sensor_motion", "on") or is_state ("binary_sensor.voordeur_deur", "on")}}
+        {{ is_state("binary_sensor.gang_sensor_motion", "on") or is_state ("binary_sensor.gang_voordeur_deur", "on")}}
       delay_off: "00:02:00"
       icon_template: "mdi:motion-sensor{{ iif(is_state('binary_sensor.activity_in_hallway', 'off'), '-off', '') }}"
 

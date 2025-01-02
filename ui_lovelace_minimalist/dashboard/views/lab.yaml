@@ -22,23 +22,12 @@ cards:
         variables:
           ulm_card_generic_name: Upload
 
-  # - type: "custom:button-card"
-  #   template: custom_card_damix48_power_details
-  #   entity: sensor.p1_meter_5c2faf080aee_active_power
-  #   variables:
-  #     ulm_card_power_details_name: Power
-  #     ulm_card_power_details_entity: sensor.p1_meter_5c2faf080aee_active_power
-  #     ulm_card_power_details_hours: 2
-  #     ulm_card_power_details_24hour: true
-  #     ulm_card_power_details_thresholds:
-  #       - value: 0
-  #         color: "#43A047"
-  #       - value: 2500
-  #         color: "#FFA600"
-  #       - value: 3000
-  #         color: "#DB4437"
-
-  - type: "custom:button-card"
-    template: "custom_card_eraycetinay_elapsed_time"
-    entity: input_datetime.no_one_home
-    name: "Niemand thuis"
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: light.kantoor
+        state: "off"  # Adjust this state as needed based on the sensor's possible states
+    card:
+      type: "custom:button-card"
+      template: card_ps5
+      entity: sensor.ps5_668_activity

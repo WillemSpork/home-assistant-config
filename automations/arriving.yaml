@@ -24,7 +24,6 @@
           entity_id: binary_sensor.activity_in_hallway
           from: "off"
           to: "on"
-      timeout: "00:05:00"
       continue_on_timeout: false
     - service: light.turn_on
       target:

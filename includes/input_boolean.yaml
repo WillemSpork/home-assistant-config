@@ -1,51 +1,62 @@
-#   _____                   _     ____              _                      
-#  |_   _|                 | |   |  _ \            | |                     
-#    | |  _ __  _ __  _   _| |_  | |_) | ___   ___ | | ___  __ _ _ __  ___ 
+#   _____                   _     ____              _
+#  |_   _|                 | |   |  _ \            | |
+#    | |  _ __  _ __  _   _| |_  | |_) | ___   ___ | | ___  __ _ _ __  ___
 #    | | | '_ \| '_ \| | | | __| |  _ < / _ \ / _ \| |/ _ \/ _` | '_ \/ __|
 #   _| |_| | | | |_) | |_| | |_  | |_) | (_) | (_) | |  __/ (_| | | | \__ \
 #  |_____|_| |_| .__/ \__,_|\__| |____/ \___/ \___/|_|\___|\__,_|_| |_|___/
-#              | |           ______                                        
-#              |_|          |______|                                       
-
+#              | |           ______
+#              |_|          |______|
 
 # Automations
-  vacation:
-    name: Vakantie modus
-    initial: off
-    icon: mdi:airplane
-  guest_mode:
-    name: Gasten modus
-    initial: off
-    icon: mdi:human-male-female
-  flash_red:
-    name: Flash Red
-    initial: off
-    icon: mdi:alarm-light
-  tts_test:
-    name: TTS Test
-    initial: off
-    icon: mdi:test-tube
-  welcome_toggle:
-    name: Welcome Toggle
-    initial: off
-    icon: mdi:account
-  cooking_mode:
-    name: Kook modus
-    initial: off
-    icon: mdi:food-turkey
-  front_door_open_warning:
-    name: Front Door Open Warning
-    initial: off
-    icon: mdi:door-closed-cancel
-  test_mode:
-    name: Test Mode
-    initial: off
-    icon: mdi:alarm-light
-  sleep_mode:
-    name: Sleep Mode
-    initial: off
-    icon: mdi:power-sleep
-  tv_mode:
-    name: Tv Mode
-    initial: on
-    icon: mdi:television-shimmer
+vacation:
+  name: Vakantie modus
+  initial: off
+  icon: mdi:airplane
+guest_mode:
+  name: Gasten modus
+  initial: off
+  icon: mdi:human-male-female
+flash_red:
+  name: Flash Red
+  initial: off
+  icon: mdi:alarm-light
+tts_test:
+  name: TTS Test
+  initial: off
+  icon: mdi:test-tube
+welcome_toggle:
+  name: Welcome Toggle
+  initial: off
+  icon: mdi:account
+cooking_mode:
+  name: Kook modus
+  initial: off
+  icon: mdi:food-turkey
+front_door_open_warning:
+  name: Front Door Open Warning
+  initial: off
+  icon: mdi:door-closed-cancel
+test_mode:
+  name: Test Mode
+  initial: off
+  icon: mdi:alarm-light
+sleep_mode:
+  name: Sleep Mode
+  initial: off
+  icon: mdi:power-sleep
+tv_mode:
+  name: Tv Mode
+  initial: on
+  icon: mdi:television-shimmer
+game_mode:
+  name: Game Mode
+  initial: on
+  icon: mdi:controller
+ninas_mantras:
+  name: Nina's Mantra's
+  initial: on
+  icon: mdi:gender-female
+willems_mantras:
+  name: Willem's Mantra's
+  initial: on
+  icon: mdi:gender-male

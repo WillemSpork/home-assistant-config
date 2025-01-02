@@ -1,0 +1,19 @@
+- alias: "Reset: reset daily at night"
+  description: Reset certain things at 6:00 AM every day.
+  trigger:
+    - platform: time
+      at: "06:00:00"
+  actions:
+    - action: input_boolean.turn_on
+      target:
+        entity_id:
+          - input_boolean.game_mode
+          - input_boolean.tv_mode
+
+    - action: input_boolean.turn_off
+      target:
+        entity_id:
+          - input_boolean.sleep_mode
+          - input_boolean.cooking_mode
+
+  mode: single

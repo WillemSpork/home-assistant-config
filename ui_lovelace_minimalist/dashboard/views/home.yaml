@@ -108,7 +108,7 @@ cards:
               label_use_temperature: true
               label_use_brightness: false
               entity_1:
-                entity_id: light.woonkamer
+                entity_id: light.woonkamer_lampen
                 templates:
                   - yellow_on
                 tap_action:

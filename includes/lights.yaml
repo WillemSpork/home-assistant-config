@@ -7,6 +7,7 @@
     - light.convectorput
     - light.sfeerlamp_woonkamer
     - light.hue_color_lamp_1
+    - light.kerstboom
 
 - platform: group
   name: Kantoor lampen

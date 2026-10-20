@@ -1,0 +1,148 @@
+#   _____           _       _
+#  / ____|         (_)     | |
+# | (___   ___ _ __ _ _ __ | |_ ___
+#  \___ \ / __| '__| | '_ \| __/ __|
+#  ____) | (__| |  | | |_) | |_\__ \
+# |_____/ \___|_|  |_| .__/ \__|___/
+#                    | |
+#                    |_|
+#
+# Let op: bewerk scripts in dit bestand, niet via de script-editor in de UI.
+# De UI herschrijft dit bestand bij opslaan en haalt dan alle opmerkingen weg.
+
+# ---------------------------------------------------------------------------
+# Media
+# ---------------------------------------------------------------------------
+play_youtube_video:
+  alias: "Script: YouTube-video afspelen (Nina's werkie)"
+  icon: mdi:youtube
+  sequence:
+    # Apple TV aanzetten als hij op standby staat
+    - if:
+        - condition: state
+          entity_id: media_player.woonkamer
+          state: standby
+      then:
+        - action: media_player.turn_on
+          target:
+            entity_id: media_player.woonkamer
+
+    # Video starten en het volume van de Sonos laag zetten
+    - action: media_player.play_media
+      target:
+        entity_id: media_player.woonkamer
+      data:
+        media_content_type: url
+        media_content_id: youtube://www.youtube.com/watch?v=jfKfPfyJRdk
+    - action: media_player.volume_set
+      target:
+        entity_id: media_player.sonos
+      data:
+        volume_level: 0.05
+
+# ---------------------------------------------------------------------------
+# Bedtijd
+# ---------------------------------------------------------------------------
+# Gestart door: Hue-dimmer woonkamer (knop 3) en SOMRIG slaapkamer (1 stip).
+#
+# Volgorde is belangrijk: eerst alle lampen uit, PAS DAARNA de slaapmodus aan.
+# Andersom gaat Adaptive Lighting de lampen die nog aan staan naar de
+# nachtstand zetten en zet het (via de Hue-groep light.kantoor) het kantoor
+# weer aan.
+script_slaaplekker:
+  alias: "Script: slaaplekker"
+  icon: mdi:power-sleep
+  mode: single
+  sequence:
+    # -- 1. Luchtreiniger slaapkamer: aan, nachtstand, niet zwenken ----------
+    #    (de Dyson heet "Huiskamer" maar staat in de slaapkamer)
+    - action: fan.turn_on
+      target:
+        entity_id: fan.huiskamer
+    - delay: 1
+    - action: switch.turn_on
+      target:
+        entity_id: switch.huiskamer_night_mode
+    - delay: 1
+    - action: fan.oscillate
+      target:
+        entity_id: fan.huiskamer
+      data:
+        oscillating: false
+
+    # -- 2. Verwarming woonkamer terug naar het Tado-schema -----------------
+    - action: climate.set_hvac_mode
+      target:
+        entity_id: climate.woonkamer
+      data:
+        hvac_mode: auto
+    - action: climate.set_preset_mode
+      target:
+        entity_id: climate.woonkamer
+      data:
+        preset_mode: auto
+      continue_on_error: true
+
+    # -- 3. Alle lampen en het stopcontact in de inloopkast uit -------------
+    - action: light.turn_off
+      target:
+        entity_id: all
+    - action: switch.turn_off
+      target:
+        entity_id: switch.closet_socket
+
+    # -- 4. Slaapmodus aan ---------------------------------------------------
+    #    Zet Adaptive Lighting in nachtstand en het alarm op Nacht
+    #    (zie automations/sleep_mode.yaml en automations/security.yaml).
+    - delay: 3
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.sleep_mode
+
+    # -- 5. Welterusten-controle: buitendeur nog open? ----------------------
+    #    Dan zegt de HomePod in de slaapkamer welke.
+    - variables:
+        open_deuren: >
+          {% set deuren = {
+            'binary_sensor.gang_voordeur_deur': 'de voordeur',
+            'binary_sensor.keuken_achterdeur_deur': 'de achterdeur'
+          } %}
+          {% set ns = namespace(open=[]) %}
+          {% for entity, naam in deuren.items() if is_state(entity, 'on') %}
+            {% set ns.open = ns.open + [naam] %}
+          {% endfor %}
+          {{ ns.open }}
+    - if:
+        - condition: template
+          value_template: "{{ open_deuren | count > 0 }}"
+      then:
+        - action: tts.speak
+          target:
+            entity_id: tts.elevenlabs_tekst_naar_spraak   # stem en model: ingesteld in de ElevenLabs-integratie
+          data:
+            media_player_entity_id: media_player.slaapkamer_2   # HomePod slaapkamer
+            message: >
+              Let op: {{ open_deuren | join(' en ') }}
+              {{ 'staat' if open_deuren | count == 1 else 'staan' }} nog open.
+          continue_on_error: true   # mislukt de spraak, dan loopt het script gewoon door
+
+    # -- 6. Vangnet ----------------------------------------------------------
+    #    Na 10 en na 30 seconden controleren of er toch nog een lamp aan
+    #    staat (Adaptive Lighting stuurt in het kantoor elke 20 s bij),
+    #    en die dan alsnog uitzetten.
+    - repeat:
+        count: 2
+        sequence:
+          - delay:
+              seconds: "{{ 10 if repeat.index == 1 else 20 }}"
+          - variables:
+              nog_aan: >
+                {{ states.light | selectattr('state', 'eq', 'on')
+                   | map(attribute='entity_id') | list }}
+          - if:
+              - condition: template
+                value_template: "{{ nog_aan | count > 0 }}"
+            then:
+              - action: light.turn_off
+                target:
+                  entity_id: "{{ nog_aan }}"

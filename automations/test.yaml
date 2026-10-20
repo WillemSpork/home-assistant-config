@@ -1,0 +1,25 @@
+- alias: "Test: notify groups"
+  triggers:
+    - trigger: state
+      entity_id: input_boolean.test_mode
+      to: "on"
+  actions:
+    - action: input_boolean.turn_off
+      entity_id: input_boolean.test_mode
+    - action: tts.speak # De moderne TTS-service
+      target:
+        entity_id: tts.elevenlabs_tts # Specifieke entiteit voor Google Translate Nederlands
+      data:
+        media_player_entity_id:
+          - media_player.slaapkamer # De media players waar de spraak op afspeelt
+        message: >
+          ai ai ai ai ai ai ai ai ai
+        cache: false # Optioneel, zet dit op false om geen caching te gebruiken
+        options:
+          voice: Jessica
+          stability: 1
+          similarity: 1
+          style: 0.3 # Only supported in eleven_multilingual_v2
+          use_speaker_boost: "true" # Only supported in eleven_multilingual_v2
+          model: eleven_multilingual_v2
+          optimize_streaming_latency: 3

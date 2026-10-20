@@ -1,0 +1,8 @@
+latitude: !secret latitude_home
+longitude: !secret longitude_home
+
+elevation: 4
+unit_system: metric
+country: NL
+time_zone: Europe/Amsterdam
+name: Home

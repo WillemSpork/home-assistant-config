@@ -1,0 +1,92 @@
+# ===============================================================
+# .gitignore voor een publieke Home Assistant-configuratie
+# Alles met wachtwoorden, sleutels, locaties of persoonlijke
+# gegevens blijft buiten Git.
+# Let op: bestanden die al gecommit zijn, worden door deze regels
+# NIET automatisch verwijderd. Gebruik daarvoor: git rm --cached <pad>
+# ===============================================================
+
+# --- Geheimen -------------------------------------------------
+secrets.yaml
+**/secrets.yaml
+!secrets.example.yaml
+credentials.json
+**/credentials.json
+*.pem
+*.key
+*.crt
+*.p12
+id_rsa*
+id_ed25519*
+.env
+.env.*
+
+# --- Interne opslag van Home Assistant -------------------------
+# .storage bevat tokens, gebruikers, integraties en apparaten
+.storage/
+.cloud/
+.ssh/
+ip_bans.yaml
+known_devices.yaml
+fitbit.conf
+.HA_VERSION
+
+# --- Add-ons met eigen configuratie en sleutels ---------------
+# Zigbee2MQTT: netwerksleutel, MQTT-wachtwoord, apparatendatabase
+zigbee2mqtt/
+# PS5-MQTT: Remote Play-koppelgegevens en PSN-account
+ps5-mqtt/
+# ESPHome: builds en geheimen niet delen
+esphome/.esphome/
+esphome/secrets.yaml
+# Node-RED: bevat flows_cred.json met wachtwoorden
+node-red/
+mosquitto/
+ssl/
+
+# --- Databases en logbestanden ---------------------------------
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+home-assistant_v2.*
+*.log
+*.log.*
+*log.fault
+
+# --- Mappen die je niet hoeft te delen --------------------------
+backups/
+blueprints/
+deps/
+image/
+media/
+share/
+tts/
+.cache/
+__pycache__/
+*.pyc
+
+# Geïnstalleerd via HACS (kan iedereen zelf installeren)
+custom_components/
+www/
+
+# --- Persoonlijke bestanden -----------------------------------
+scenes.yaml
+automations/mantras.yaml
+
+# --- Systeem- en editorbestanden -------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+.bash_history
+.bash_profile
+.tmux.conf
+.gitconfig
+.venv/
+venv/
+env/
+.ha_run.lock

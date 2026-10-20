@@ -1,0 +1,266 @@
+title: "Klimaat"
+path: climate
+icon: "mdi:home-thermometer"
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /ui-lovelace-minimalist/home
+
+  - type: vertical-stack
+    cards:
+      - type: "custom:button-card"
+        template: card_title
+        name: Buiten (48 uur)
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.buiten_temperatuur
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Utrecht
+              ulm_card_graph_entity: sensor.buiten_temperatuur
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.buiten_luchtvochtigheid
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Utrecht
+              ulm_card_graph_entity: sensor.buiten_luchtvochtigheid
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+
+      - type: "custom:button-card"
+        template: card_title
+        name: Temperatuur (48 uur)
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.woonkamer_temperatuur
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Woonkamer
+              ulm_card_graph_entity: sensor.woonkamer_temperatuur
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.keuken_sensor_temperature
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Keuken
+              ulm_card_graph_entity: sensor.keuken_sensor_temperature
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.gang_sensor_temperature
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Gang
+              ulm_card_graph_entity: sensor.gang_sensor_temperature
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.inloopkast_temperatuur
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Inloopkast
+              ulm_card_graph_entity: sensor.inloopkast_temperatuur
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.slaapkamer_temperatuur
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Slaapkamer
+              ulm_card_graph_entity: sensor.slaapkamer_temperatuur
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.average_temperature
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Gemiddeld
+              ulm_card_graph_entity: sensor.average_temperature
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+              ulm_card_graph_icon: mdi:thermometer
+
+      - type: "custom:button-card"
+        template: card_title
+        name: Luchtvochtigheid (48 uur)
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.woonkamer_luchtvochtigheid
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Woonkamer & kantoor
+              ulm_card_graph_entity: sensor.woonkamer_luchtvochtigheid
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.inloopkast_luchtvochtigheid
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Inloopkast
+              ulm_card_graph_entity: sensor.inloopkast_luchtvochtigheid
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.huiskamer_humidity
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Slaapkamer
+              ulm_card_graph_entity: sensor.huiskamer_humidity
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.average_humidity
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Gemiddeld
+              ulm_card_graph_entity: sensor.average_humidity
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+              ulm_card_graph_icon: mdi:water-percent
+
+      - type: "custom:button-card"
+        template: card_title
+        name: VOS (48 uur)
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.slaapkamer_volatile_organic_compounds_index
+            variables:
+              ulm_card_graph_color: "var(--google-yellow)"
+              ulm_card_graph_name: Woonkamer & kantoor
+              ulm_card_graph_entity: sensor.slaapkamer_volatile_organic_compounds_index
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.huiskamer_volatile_organic_compounds_index
+            variables:
+              ulm_card_graph_color: "var(--google-yellow)"
+              ulm_card_graph_name: Slaapkamer
+              ulm_card_graph_entity: sensor.huiskamer_volatile_organic_compounds_index
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+
+      - type: "custom:button-card"
+        template: card_title
+        name: Verwarmen (48 uur)
+
+      - type: horizontal-stack
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.woonkamer_verwarmen
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Woonkamer & kantoor
+              ulm_card_graph_entity: sensor.woonkamer_verwarmen
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+              ulm_card_graph_icon: mdi:radiator
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.slaapkamer_verwarmen
+            variables:
+              ulm_card_graph_color: "var(--google-red)"
+              ulm_card_graph_name: Slaapkamer
+              ulm_card_graph_entity: sensor.slaapkamer_verwarmen
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 48
+              ulm_card_graph_group_by: interval
+              ulm_card_graph_line_width: 5
+              ulm_card_graph_points: 4
+              ulm_card_graph_icon: mdi:radiator
+
+      - type: "custom:button-card"
+        template: card_graph
+        entity: sensor.inloopkast_verwarmen
+        variables:
+          ulm_card_graph_color: "var(--google-red)"
+          ulm_card_graph_name: Inloopkast
+          ulm_card_graph_entity: sensor.inloopkast_verwarmen
+          ulm_card_graph_type: fill
+          ulm_card_graph_hours: 48
+          ulm_card_graph_group_by: interval
+          ulm_card_graph_line_width: 5
+          ulm_card_graph_points: 4
+          ulm_card_graph_icon: mid:radiatior

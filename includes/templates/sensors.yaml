@@ -1,0 +1,126 @@
+#  Template sensors
+#
+#  Geladen via: template: !include_dir_merge_list includes/templates
+#  Sensoren die berekend worden uit andere entiteiten.
+#  default_entity_id houdt de oude entity-ID's aan; unique_id maakt ze
+#  aanpasbaar in de UI.
+
+- sensor:
+    # -----------------------------------------------------------------------
+    # Klimaat
+    # -----------------------------------------------------------------------
+    # Gemiddelden: rekenen alleen met sensoren die een getal geven, zodat één
+    # 'unavailable' sensor niet meer de hele template laat crashen.
+    - name: Gemiddelde Temperatuur
+      unique_id: tpl_average_temperature
+      default_entity_id: sensor.average_temperature
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      availability: >
+        {% set w = ['sensor.woonkamer_temperatuur', 'sensor.slaapkamer_temperatuur',
+                    'sensor.keuken_sensor_temperature', 'sensor.gang_sensor_temperature',
+                    'sensor.inloopkast_temperatuur']
+                   | map('states') | select('is_number') | map('float') | list %}
+        {{ w | count > 0 }}
+      state: >
+        {% set w = ['sensor.woonkamer_temperatuur', 'sensor.slaapkamer_temperatuur',
+                    'sensor.keuken_sensor_temperature', 'sensor.gang_sensor_temperature',
+                    'sensor.inloopkast_temperatuur']
+                   | map('states') | select('is_number') | map('float') | list %}
+        {{ (w | sum / w | count) | round(1) }}
+
+    - name: Gemiddelde Temperatuur Gang
+      unique_id: tpl_average_temperature_hallway
+      default_entity_id: sensor.average_temperature_hallway
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      availability: >
+        {% set w = ['sensor.keuken_sensor_temperature', 'sensor.gang_sensor_temperature']
+                   | map('states') | select('is_number') | map('float') | list %}
+        {{ w | count > 0 }}
+      state: >
+        {% set w = ['sensor.keuken_sensor_temperature', 'sensor.gang_sensor_temperature']
+                   | map('states') | select('is_number') | map('float') | list %}
+        {{ (w | sum / w | count) | round(1) }}
+
+    - name: Gemiddelde Luchtvochtigheid
+      unique_id: tpl_average_humidity
+      default_entity_id: sensor.average_humidity
+      unit_of_measurement: "%"
+      device_class: humidity
+      state_class: measurement
+      availability: >
+        {% set w = ['sensor.woonkamer_luchtvochtigheid', 'sensor.slaapkamer_luchtvochtigheid',
+                    'sensor.inloopkast_luchtvochtigheid']
+                   | map('states') | select('is_number') | map('float') | list %}
+        {{ w | count > 0 }}
+      state: >
+        {% set w = ['sensor.woonkamer_luchtvochtigheid', 'sensor.slaapkamer_luchtvochtigheid',
+                    'sensor.inloopkast_luchtvochtigheid']
+                   | map('states') | select('is_number') | map('float') | list %}
+        {{ (w | sum / w | count) | round(1) }}
+
+    - name: Temperatuur buiten
+      unique_id: tpl_buiten_temperatuur
+      default_entity_id: sensor.buiten_temperatuur
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      availability: "{{ state_attr('weather.buienradar', 'temperature') is number }}"
+      state: "{{ state_attr('weather.buienradar', 'temperature') }}"
+
+    - name: Slaapkamer Temperatuur
+      unique_id: tpl_tado_slaapkamer_temperatuur
+      default_entity_id: sensor.tado_slaapkamer_temperatuur
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      availability: "{{ state_attr('climate.slaapkamer', 'current_temperature') is number }}"
+      state: "{{ state_attr('climate.slaapkamer', 'current_temperature') }}"
+
+    # -----------------------------------------------------------------------
+    # Personen & apparaten
+    # -----------------------------------------------------------------------
+    - name: Nina BLE Status
+      unique_id: tpl_nina_in_home_location
+      default_entity_id: sensor.nina_in_home_location
+      icon: mdi:map-marker-radius
+      state: >
+        {% set s = states('sensor.iphone_nina_ble') %}
+        {{ 'Niet thuis' if s in ['not_home', 'unknown', 'unavailable'] else s | capitalize }}
+
+    - name: Willem BLE Status
+      unique_id: tpl_willem_in_home_location
+      default_entity_id: sensor.willem_in_home_location
+      icon: mdi:map-marker-radius
+      state: >
+        {% set s = states('sensor.iphone_willem_ble') %}
+        {{ 'Niet thuis' if s in ['not_home', 'unknown', 'unavailable'] else s | capitalize }}
+
+    - name: Macbook Pro van Willem Charging
+      unique_id: tpl_macbook_pro_van_willem_charging
+      default_entity_id: sensor.macbook_pro_van_willem_charging
+      icon: >
+        {{ 'mdi:battery-charging'
+           if is_state_attr('sensor.macbook_pro_van_willem_internal_battery_level', 'Is Charging', true)
+           else 'mdi:battery' }}
+      state: >
+        {{ 'charging'
+           if is_state_attr('sensor.macbook_pro_van_willem_internal_battery_level', 'Is Charging', true)
+           else 'discharging' }}
+
+    # Telt alleen echte lampen, geen lampgroepen of Hue-kamers
+    # (anders telde een kamer met 3 lampen als 4)
+    - name: Aantal Lampen Aan
+      unique_id: tpl_any_lights_on
+      default_entity_id: sensor.any_lights_on
+      unit_of_measurement: lampen
+      icon: mdi:lightbulb-group
+      state: >
+        {{ states.light
+           | selectattr('state', 'eq', 'on')
+           | rejectattr('attributes.entity_id', 'defined')
+           | rejectattr('attributes.is_hue_group', 'eq', true)
+           | list | count }}

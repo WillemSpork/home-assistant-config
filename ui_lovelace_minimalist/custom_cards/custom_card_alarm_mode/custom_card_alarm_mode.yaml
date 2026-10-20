@@ -1,0 +1,268 @@
+---
+### Custom Card Alarm Mode ###
+# Schakelaar voor een input_select met drie standen (bijv. Uit / Nacht / Volledig).
+# Gebruik:
+#   - type: "custom:button-card"
+#     template: custom_card_alarm_mode
+#     entity: input_select.alarm_mode
+#
+# Optionele variabelen (standaardwaarden hieronder):
+#   ulm_custom_card_alarm_mode_name                  naam bovenaan (standaard: friendly_name)
+#   ulm_custom_card_alarm_mode_icon_1/2/3            icoon per stand
+#   ulm_custom_card_alarm_mode_color_1/2/3           kleur per stand: green, blue, red, yellow, purple, pink, grey
+#   ulm_custom_card_alarm_mode_force_background_color  kaart inkleuren als het alarm aan staat (true/false)
+custom_card_alarm_mode:
+  show_icon: false
+  show_name: false
+  show_label: false
+  variables:
+    ulm_custom_card_alarm_mode_name: "[[[ return entity.attributes.friendly_name ]]]"
+    ulm_custom_card_alarm_mode_icon_1: "mdi:shield-off-outline"
+    ulm_custom_card_alarm_mode_icon_2: "mdi:shield-moon"
+    ulm_custom_card_alarm_mode_icon_3: "mdi:shield-lock"
+    ulm_custom_card_alarm_mode_color_1: "green"
+    ulm_custom_card_alarm_mode_color_2: "blue"
+    ulm_custom_card_alarm_mode_color_3: "red"
+    ulm_custom_card_alarm_mode_force_background_color: false
+  triggers_update: "all"
+  styles:
+    grid:
+      - grid-template-areas: "'item1' 'item2'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "min-content min-content"
+      - row-gap: "12px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "12px"
+      - background-color: >
+          [[[
+            const i = entity.attributes.options.indexOf(entity.state);
+            if (variables.ulm_custom_card_alarm_mode_force_background_color && i > 0) {
+              const color = variables['ulm_custom_card_alarm_mode_color_' + (i + 1)];
+              return 'rgba(var(--color-' + color + '), var(--opacity-bg))';
+            }
+            return 'var(--ha-card-background, var(--card-background-color))';
+          ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template:
+          - "icon_info"
+        entity: "[[[ return entity.entity_id ]]]"
+        variables: "[[[ return variables ]]]"
+        tap_action:
+          action: "more-info"
+        name: "[[[ return variables.ulm_custom_card_alarm_mode_name ]]]"
+        icon: >
+          [[[
+            const i = entity.attributes.options.indexOf(entity.state);
+            return i >= 0 ? variables['ulm_custom_card_alarm_mode_icon_' + (i + 1)]
+                          : (entity.attributes.icon || 'mdi:shield-home');
+          ]]]
+        label: >
+          [[[
+            if (entity.state === 'unavailable' || entity.state === 'unknown') return entity.state;
+            const d = new Date(entity.last_changed);
+            const now = new Date();
+            const time = d.toLocaleTimeString(hass.language, { hour: '2-digit', minute: '2-digit' });
+            const sameDay = d.toDateString() === now.toDateString();
+            const when = sameDay ? time
+              : d.toLocaleDateString(hass.language, { day: 'numeric', month: 'short' }) + ' ' + time;
+            return entity.state + ' · sinds ' + when;
+          ]]]
+        styles:
+          icon:
+            - color: >
+                [[[
+                  const i = entity.attributes.options.indexOf(entity.state);
+                  if (i < 0) return 'rgba(var(--color-theme),0.2)';
+                  return 'rgba(var(--color-' + variables['ulm_custom_card_alarm_mode_color_' + (i + 1)] + '),1)';
+                ]]]
+          img_cell:
+            - background-color: >
+                [[[
+                  const i = entity.attributes.options.indexOf(entity.state);
+                  if (i < 0) return 'rgba(var(--color-theme),0.05)';
+                  return 'rgba(var(--color-' + variables['ulm_custom_card_alarm_mode_color_' + (i + 1)] + '),0.2)';
+                ]]]
+    item2:
+      card:
+        type: "custom:button-card"
+        template: "list_3_items"
+        custom_fields:
+          item1:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              variables: "[[[ return variables ]]]"
+              show_icon: true
+              show_name: true
+              show_state: false
+              show_label: false
+              size: "18px"
+              name: "[[[ return entity.attributes.options[0] ]]]"
+              icon: "[[[ return variables.ulm_custom_card_alarm_mode_icon_1 ]]]"
+              tap_action:
+                action: "perform-action"
+                perform_action: "input_select.select_option"
+                target:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                data:
+                  option: "[[[ return entity.attributes.options[0] ]]]"
+                haptic: "medium"
+              hold_action:
+                action: "none"
+              double_tap_action:
+                action: "none"
+              styles:
+                grid:
+                  - grid-template-areas: "'i n'"
+                  - grid-template-columns: "min-content min-content"
+                  - justify-content: "center"
+                  - align-items: "center"
+                  - column-gap: "6px"
+                card:
+                  - box-shadow: "none"
+                  - padding: "0px 6px"
+                  - height: "42px"
+                  - border-radius: "14px"
+                  - background-color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[0]) return 'rgba(var(--color-theme),0.05)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_1 + '),0.2)';
+                      ]]]
+                icon:
+                  - color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[0]) return 'rgba(var(--color-theme),0.3)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_1 + '),1)';
+                      ]]]
+                name:
+                  - font-size: "13px"
+                  - font-weight: "bold"
+                  - white-space: "nowrap"
+                  - overflow: "hidden"
+                  - text-overflow: "ellipsis"
+                  - color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[0]) return 'rgba(var(--color-theme),0.5)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_1 + '),1)';
+                      ]]]
+          item2:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              variables: "[[[ return variables ]]]"
+              show_icon: true
+              show_name: true
+              show_state: false
+              show_label: false
+              size: "18px"
+              name: "[[[ return entity.attributes.options[1] ]]]"
+              icon: "[[[ return variables.ulm_custom_card_alarm_mode_icon_2 ]]]"
+              tap_action:
+                action: "perform-action"
+                perform_action: "input_select.select_option"
+                target:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                data:
+                  option: "[[[ return entity.attributes.options[1] ]]]"
+                haptic: "medium"
+              hold_action:
+                action: "none"
+              double_tap_action:
+                action: "none"
+              styles:
+                grid:
+                  - grid-template-areas: "'i n'"
+                  - grid-template-columns: "min-content min-content"
+                  - justify-content: "center"
+                  - align-items: "center"
+                  - column-gap: "6px"
+                card:
+                  - box-shadow: "none"
+                  - padding: "0px 6px"
+                  - height: "42px"
+                  - border-radius: "14px"
+                  - background-color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[1]) return 'rgba(var(--color-theme),0.05)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_2 + '),0.2)';
+                      ]]]
+                icon:
+                  - color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[1]) return 'rgba(var(--color-theme),0.3)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_2 + '),1)';
+                      ]]]
+                name:
+                  - font-size: "13px"
+                  - font-weight: "bold"
+                  - white-space: "nowrap"
+                  - overflow: "hidden"
+                  - text-overflow: "ellipsis"
+                  - color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[1]) return 'rgba(var(--color-theme),0.5)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_2 + '),1)';
+                      ]]]
+          item3:
+            card:
+              type: "custom:button-card"
+              entity: "[[[ return entity.entity_id ]]]"
+              variables: "[[[ return variables ]]]"
+              show_icon: true
+              show_name: true
+              show_state: false
+              show_label: false
+              size: "18px"
+              name: "[[[ return entity.attributes.options[2] ]]]"
+              icon: "[[[ return variables.ulm_custom_card_alarm_mode_icon_3 ]]]"
+              tap_action:
+                action: "perform-action"
+                perform_action: "input_select.select_option"
+                target:
+                  entity_id: "[[[ return entity.entity_id ]]]"
+                data:
+                  option: "[[[ return entity.attributes.options[2] ]]]"
+                haptic: "medium"
+              hold_action:
+                action: "none"
+              double_tap_action:
+                action: "none"
+              styles:
+                grid:
+                  - grid-template-areas: "'i n'"
+                  - grid-template-columns: "min-content min-content"
+                  - justify-content: "center"
+                  - align-items: "center"
+                  - column-gap: "6px"
+                card:
+                  - box-shadow: "none"
+                  - padding: "0px 6px"
+                  - height: "42px"
+                  - border-radius: "14px"
+                  - background-color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[2]) return 'rgba(var(--color-theme),0.05)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_3 + '),0.2)';
+                      ]]]
+                icon:
+                  - color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[2]) return 'rgba(var(--color-theme),0.3)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_3 + '),1)';
+                      ]]]
+                name:
+                  - font-size: "13px"
+                  - font-weight: "bold"
+                  - white-space: "nowrap"
+                  - overflow: "hidden"
+                  - text-overflow: "ellipsis"
+                  - color: >
+                      [[[
+                        if (entity.state !== entity.attributes.options[2]) return 'rgba(var(--color-theme),0.5)';
+                        return 'rgba(var(--color-' + variables.ulm_custom_card_alarm_mode_color_3 + '),1)';
+                      ]]]

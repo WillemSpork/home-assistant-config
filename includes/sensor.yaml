@@ -1,0 +1,50 @@
+#  __          ___ _ _                   _____                  _
+#  \ \        / (_) | |                 / ____|                | |
+#   \ \  /\  / / _| | | ___ _ __ ___   | (___  _ __   ___  _ __| | __
+#    \ \/  \/ / | | | |/ _ \ '_ ` _ \   \___ \| '_ \ / _ \| '__| |/ /
+#     \  /\  /  | | | |  __/ | | | | |  ____) | |_) | (_) | |  |   <
+#      \/  \/   |_|_|_|\___|_| |_| |_| |_____/| .__/ \___/|_|  |_|\_\
+#                                             | |
+#                                             |_|
+
+# Berekende (template) sensoren staan in includes/templates/
+
+#Time
+
+- platform: time_date
+  display_options:
+    - "time"
+
+#ESPprecense > Willem (Phone)
+
+- platform: mqtt_room
+  device_id: "willem_s_iphone"
+  name: "iphone_willem_ble"
+  state_topic: "espresense/devices/willem_s_iphone"
+  timeout: 5
+  away_timeout: 120
+
+#ESPprecense > Nina (Phone)
+
+- platform: mqtt_room
+  device_id: "nina_s_iphone"
+  name: "iphone_nina_ble"
+  state_topic: "espresense/devices/nina_s_iphone"
+  timeout: 5
+  away_timeout: 120
+
+# OvAPI
+
+- platform: ovapi
+  name: Bus_12
+  stop_code: utrkoe
+  route_code: 50000880
+  line_filter: 12
+  show_future_departures: 4
+
+- platform: ovapi
+  name: Bus_28
+  stop_code: utrkoe
+  route_code: 50000880
+  line_filter: 28
+  show_future_departures: 4

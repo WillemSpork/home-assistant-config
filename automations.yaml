@@ -1,0 +1,286 @@
+- alias: Flash Red
+  trigger:
+  - platform: state
+    entity_id: input_boolean.flash_red
+    to: 'on'
+  action:
+  - repeat:
+      while:
+      - condition: state
+        entity_id: input_boolean.flash_red
+        state: 'on'
+      sequence:
+      - service: light.turn_on
+        data:
+          entity_id:
+          - light.kantoor_plafond
+          - light.convectorput
+          rgb_color:
+          - 255
+          - 38
+          - 0
+      - delay:
+          milliseconds: 500
+      - service: light.turn_off
+        data:
+          entity_id:
+          - light.kantoor_plafond
+          - light.convectorput
+      - delay:
+          milliseconds: 500
+  id: bc98764800ce4ee5887d72d55f956c49
+- id: '1697908759181'
+  alias: TTS Testen
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.tts_test
+    to: 'on'
+  condition: []
+  action:
+  - service: tts.google_say
+    data:
+      cache: false
+      entity_id:
+      - media_player.slaapkamer_2
+      - media_player.slaapkamer
+      message: Nina heeft vandaag 3783 stappen gezet. Tijd om naar buiten te gaan!
+  mode: single
+- alias: Update Dryer Timer
+  trigger:
+    platform: state
+    entity_id: sensor.droger_dryer_completion_time
+  action:
+  - service: timer.start
+    target:
+      entity_id: timer.droger_timer
+    data:
+      duration: '{{ (as_timestamp(strptime(states(''sensor.droger_dryer_completion_time''),
+        ''%Y-%m-%dT%H:%M:%S+00:00'')) - as_timestamp(now())) | int }}
+
+        '
+  id: d0c1e848ffad4c73a70b00f4333e1910
+- id: '1698456877330'
+  alias: Welterusten
+  description: ''
+  triggers:
+  - device_id: ef8c38a85b323b90542b3d9ec14251d9
+    domain: hue
+    type: initial_press
+    subtype: 3
+    unique_id: 52ae4513-474b-4d98-b642-5946e34fec7d
+    trigger: device
+  conditions: []
+  actions:
+  - action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: script.script_slaaplekker
+  mode: single
+- id: '1700000000000'
+  alias: Speel Geselecteerd Radiostation
+  description: Speelt het geselecteerde radiostation af in kantoor
+  trigger:
+  - platform: state
+    entity_id: input_select.radio_station
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.slaapkamer
+    data:
+      media_content_id: "{% set station = states('input_select.radio_station') %}
+        {% set stations = {\n  \"QMusic\": \"https://stream.qmusic.nl/qmusic/mp3\",\n
+        \ \"BNR Nieuwsradio\": \"https://stream.bnr.nl/bnr_mp3_128_20\",\n  \"QMusic
+        Non-Stop\": \"https://stream.qmusic.nl/nonstop/mp3\",\n  \"LoFi\": \"http://streams.dez.ovh:8000/radio.mp3\",\n
+        \ \"Efteling Radio\": 'http://ice.cr2.streamzilla.xlcdn.com:8000/sz=efteling=hdstream'\n}
+        %} {{ stations[station] }}\n"
+      media_content_type: music
+  mode: single
+- id: standard_theme
+  alias: 'System: standaard thema selecteren bij herstart'
+  description: ''
+  triggers:
+  - event: start
+    trigger: homeassistant
+  actions:
+  - data:
+      name: minimalist-ios-tapbar
+    action: frontend.set_theme
+  initial_state: 'true'
+- id: '1729727657788'
+  alias: 'Test: PS5 automation'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.ps5_668_activity
+    attribute: activity
+  - trigger: state
+    entity_id:
+    - input_boolean.tv_mode
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.ps5_668_activity
+      attribute: activity
+      state: playing
+    - condition: state
+      entity_id: input_boolean.tv_mode
+      state: 'on'
+  - condition: and
+    conditions:
+    - condition: template
+      value_template: '{{ states(''sensor.time'') >= states(''input_datetime.start_tvmodus'')[0:5]
+        and states(''sensor.time'') < ''24:00'' }}'
+    - condition: template
+      value_template: '{{ states(''sensor.time'') >= ''00:00'' and states(''sensor.time'')
+        <= states(''input_datetime.end_tvmodus'')[0:5] }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.tv_mode
+        state: 'on'
+      - condition: state
+        entity_id: sensor.ps5_668_activity
+        attribute: activity
+        state: playing
+      sequence:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.adaptive_lighting_adapt_brightness_living_room
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: input_boolean.tv_mode
+          state: 'off'
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: sensor.ps5_668_activity
+            attribute: activity
+            state: playing
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.adaptive_lighting_sleep_mode_living_room
+  mode: single
+- id: '1736380690757'
+  alias: 'Notification: Low battery level detection & notification for all battery
+    sensors'
+  description: ''
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      actions:
+      - action: notify.iphone_willem
+        metadata: {}
+        data:
+          title: "\U0001FAAB Battery low!"
+          message: Er zit een batterij bijna zonder stroom.
+- id: '1740180670204'
+  alias: 'Button: kitchen'
+  description: ''
+  use_blueprint:
+    path: WillemSpork/Aqara-T1-Automation-Blueprint.yaml
+    input:
+      single_press_action:
+      - action: input_boolean.toggle
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.cooking_mode
+- id: '1742594662113'
+  alias: 'Button: rookalarm'
+  description: ''
+  use_blueprint:
+    path: amorfinvdev/somrig.yaml
+    input:
+      remote_name: living_button
+      dots_1_press_action:
+      - action: notify.nina
+        metadata: {}
+        data:
+          title: "ROOKALARM \U0001F6AC"
+          message: Ojee! Het rookalarm gaat af.
+          data:
+            push:
+              sound:
+                name: default
+                critical: 1
+                volume: 0.5
+      dots_2_press_action:
+      - action: notify.nina
+        metadata: {}
+        data:
+          title: "\U0001F964 Willem wil wat drinken"
+          message: Dag vrouwmens, het ventje heb dorst. Dus het vriendelijke verzoek
+            wat uit de keuken te serveren.
+          data:
+            push:
+              sound:
+                name: default
+                critical: 1
+                volume: 1
+- id: '1763071674956'
+  alias: 'Button: bedroom controller'
+  description: ''
+  use_blueprint:
+    path: amorfinvdev/somrig.yaml
+    input:
+      remote_name: button_bedroom
+      dots_1_press_action:
+      - action: script.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: script.script_slaaplekker
+      dots_2_press_action:
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.sleep_mode
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 5
+          milliseconds: 0
+      - action: light.turn_on
+        metadata: {}
+        data: {}
+        target:
+          area_id: slaapkamer
+- id: '1791845692754'
+  alias: Matter - IKEA BILRESA Scroll Wheel for media (v1.0)
+  description: ''
+  use_blueprint:
+    path: shawsky/ikea-bilresa-scrollwheel-media-control.yaml
+    input:
+      remote: c3ba39237eb93a52f3f167a9c32c3564
+      channel_1_media_player: media_player.slaapkamer
+      channel_1_default_play_pause:
+      - action: music_assistant.play_media
+        target:
+          entity_id: media_player.slaapkamer_3
+        data:
+          media_id: spotify://playlist/37i9dQZF1DXaQm3ZVg9Z2X?si=95c4cf111b1340c8
+          media_type: playlist
+          enqueue: replace
+      channel_3_media_player: media_player.sonos_2
+      channel_3_default_play_pause:
+      - action: music_assistant.play_media
+        target:
+          entity_id: media_player.sonos_2
+        data:
+          media_id: spotify://playlist/37i9dQZF1DXaQm3ZVg9Z2X?si=95c4cf111b1340c8
+          media_type: playlist
+          enqueue: replace

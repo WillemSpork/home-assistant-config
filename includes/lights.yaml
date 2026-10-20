@@ -1,0 +1,45 @@
+- platform: group
+  name: Woonkamer lampen
+  entities:
+    - light.plafondlamp_1
+    - light.plafondlamp_2
+    - light.plafondlamp_3
+    - light.convectorput
+    - light.sfeerlamp_woonkamer
+    - light.hue_color_lamp_1
+    - light.kerstboom
+
+- platform: group
+  name: Kantoor lampen
+  entities:
+    - light.kantoor_plafond_1
+    - light.kantoor_plafond_2
+    - light.kantoor_plafond_3
+    - light.kantoor_sfeerlamp
+    - light.bureaulamp
+    - light.bollamp
+    - light.kantoor_donutlamp
+
+- platform: group
+  name: Slaapkamer lampen
+  entities:
+    - light.hue_go_1
+    - light.slaapkamer
+
+- platform: group
+  name: Keuken lampen
+  entities:
+    - light.keuken_plafond
+
+- platform: group
+  name: Gang lampen
+  entities:
+    - light.gang_plafond
+    - light.gang_spot_1
+    - light.gang_spot_2
+    - light.gang_spot_3
+
+- platform: group
+  name: Inloopkast lampen
+  entities:
+    - light.plafond_inloopkast

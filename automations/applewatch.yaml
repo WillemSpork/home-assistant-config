@@ -1,0 +1,20 @@
+#                        _       __          __   _       _     
+#      /\               | |      \ \        / /  | |     | |    
+#     /  \   _ __  _ __ | | ___   \ \  /\  / /_ _| |_ ___| |__  
+#    / /\ \ | '_ \| '_ \| |/ _ \   \ \/  \/ / _` | __/ __| '_ \ 
+#   / ____ \| |_) | |_) | |  __/    \  /\  / (_| | || (__| | | |
+#  /_/    \_\ .__/| .__/|_|\___|     \/  \/ \__,_|\__\___|_| |_|
+#           | |   | |                                           
+#           |_|   |_|                                           
+
+- alias: "iOS: lichten in kantoor aan-/uitzetten"
+  initial_state: true
+  triggers:
+    - trigger: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: "Kantoor"
+  actions:
+    - action: light.toggle
+      target:
+        entity_id: light.kantoor_lampen

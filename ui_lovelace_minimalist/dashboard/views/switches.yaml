@@ -1,0 +1,141 @@
+title: "Schakels"
+path: switches
+icon: "mdi:toggle-switch-off"
+cards:
+
+  - type: vertical-stack
+    cards:
+
+    - type: "custom:button-card"
+      template: "card_esh_welcome"
+      triggers_update: "input_boolean.welcome_toggle"
+      variables:
+        ulm_card_esh_welcome_collapse: input_boolean.welcome_toggle
+        ulm_weather: "weather.buienradar"
+        entity_1:
+          nav: "home"
+          icon: "mdi:home"
+          name: "Huis"
+          color: "blue"
+        entity_2:
+          nav: "switches"
+          icon: "mdi:toggle-switch-off"
+          name: "Schakels"
+          color: "yellow"
+        entity_3:
+          nav: "security"
+          icon: "mdi:shield"
+          name: "Beveliging"
+          color: "green"
+        entity_4:
+          nav: "battery"
+          icon: "mdi:battery-medium"
+          name: "Batterij"
+          color: "purple"
+        entity_5:
+          nav: "lab"
+          icon: "mdi:flask"
+          name: "Lab"
+          color: "red"
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Huismodi
+      label: 'Verschillende huismodi'
+
+        
+    - type: horizontal-stack
+      cards:
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.vacation_mode
+        variables:
+          ulm_card_input_boolean_name: Vakantiemodus
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.cooking_mode
+        variables:
+          ulm_card_input_boolean_name: Kookmodus
+
+    - type: horizontal-stack
+      cards:
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.alarm
+        variables:
+          ulm_card_input_boolean_name: Beveliging
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.sleep_mode
+        variables:
+          ulm_card_input_boolean_name: Slaapmodus
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Televisiemodus
+      label: 'Verschillende huismodi'
+
+        
+    - type: horizontal-stack
+      cards:
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.tv_mode
+        variables:
+          ulm_card_input_boolean_name: Televisiemodus
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.game_mode
+        variables:
+          ulm_card_input_boolean_name: Gamemodus
+
+    - type: conditional
+      conditions:
+        - condition: or
+          conditions:
+            - condition: state
+              entity: input_boolean.tv_mode
+              state: "on"
+            - condition: state
+              entity: input_boolean.game_mode
+              state: "on"
+      card:
+          type: horizontal-stack
+          cards:
+          - type: "custom:button-card"
+            template:
+              - card_input_datetime
+            entity: input_datetime.start_tvmodus
+            variables:
+              ulm_card_input_datetime_name: "Begin tijd"
+          - type: "custom:button-card"
+            template:
+              - card_input_datetime
+            entity: input_datetime.end_tvmodus
+            variables:
+              ulm_card_input_datetime_name: "Eind tijd"
+
+    - type: 'custom:button-card'
+      template: card_title
+      name: Notificaties
+      label: 'Verschillende notificatie functies'
+
+    - type: horizontal-stack
+      cards:
+      
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.willems_mantras
+        variables:
+          ulm_card_input_boolean_name: Willem's mantra's
+
+      - type: 'custom:button-card'
+        template: card_input_boolean
+        entity: input_boolean.ninas_mantras
+        variables:
+          ulm_card_input_boolean_name: Nina's mantra's

@@ -1,0 +1,86 @@
+#  Template binary sensors
+#
+#  Geladen via: template: !include_dir_merge_list includes/templates
+#  Aan/uit-sensoren die berekend worden uit andere entiteiten.
+#  default_entity_id houdt de oude entity-ID's aan; unique_id maakt ze
+#  aanpasbaar in de UI.
+
+- binary_sensor:
+    # -----------------------------------------------------------------------
+    # Beweging, activiteit & aanwezigheid
+    # -----------------------------------------------------------------------
+    # Hele huis
+    - name: Any motion detected
+      unique_id: tpl_motion_detected
+      default_entity_id: binary_sensor.motion_detected
+      device_class: motion
+      state: >
+        {{ is_state('binary_sensor.gang_sensor_motion', 'on')
+           or is_state('binary_sensor.keuken_sensor_motion', 'on')
+           or is_state('binary_sensor.slaapkamer_sensor_motion', 'on')
+           or is_state('binary_sensor.inloopkast_sensor_motion', 'on') }}
+
+    - name: Any motion detected in last hour
+      unique_id: tpl_motion_detected_in_last_hour
+      default_entity_id: binary_sensor.motion_detected_in_last_hour
+      device_class: motion
+      state: "{{ is_state('binary_sensor.motion_detected', 'on') }}"
+      delay_off: "01:00:00"
+
+    - name: Someone in the house in last hour
+      unique_id: tpl_someone_in_the_house_in_last_hour
+      default_entity_id: binary_sensor.someone_in_the_house_in_last_hour
+      device_class: occupancy
+      # Fix: hier ontbrak eerst 'binary_sensor.' waardoor dit deel altijd false was
+      state: >
+        {{ is_state('binary_sensor.motion_detected_in_last_hour', 'on')
+           or is_state('group.persons', 'home') }}
+
+    - name: Someone in the bedroom
+      unique_id: tpl_someone_in_bedroom
+      default_entity_id: binary_sensor.someone_in_bedroom
+      device_class: occupancy
+      state: >
+        {{ is_state('sensor.iphone_willem_ble', 'slaapkamer')
+           or is_state('sensor.iphone_nina_ble', 'slaapkamer') }}
+
+    - name: No one is home
+      unique_id: tpl_no_one_home
+      default_entity_id: binary_sensor.no_one_home
+      state: >
+        {{ not is_state('person.willem_spork', 'home')
+           and not is_state('person.nina_juffermans', 'home') }}
+
+    # Kamers (device_class motion geeft automatisch het
+    # mdi:motion-sensor / mdi:motion-sensor-off icoon)
+    - name: Activity in the kitchen
+      unique_id: tpl_activity_in_kitchen
+      default_entity_id: binary_sensor.activity_in_kitchen
+      device_class: motion
+      state: >
+        {{ is_state('binary_sensor.keuken_sensor_motion', 'on')
+           or is_state('binary_sensor.keuken_achterdeur_deur', 'on') }}
+      delay_off: "00:02:00"
+
+    - name: Activity in the hallway
+      unique_id: tpl_activity_in_hallway
+      default_entity_id: binary_sensor.activity_in_hallway
+      device_class: motion
+      state: >
+        {{ is_state('binary_sensor.gang_sensor_motion', 'on')
+           or is_state('binary_sensor.gang_voordeur_deur', 'on') }}
+      delay_off: "00:02:00"
+
+    - name: Activity in the bedroom
+      unique_id: tpl_activity_in_bedroom
+      default_entity_id: binary_sensor.activity_in_bedroom
+      device_class: motion
+      state: "{{ is_state('binary_sensor.slaapkamer_sensor_motion', 'on') }}"
+      delay_off: "00:02:00"
+
+    - name: Activity in the wardrobe
+      unique_id: tpl_activity_in_wardrobe
+      default_entity_id: binary_sensor.activity_in_wardrobe
+      device_class: motion
+      state: "{{ is_state('binary_sensor.inloopkast_sensor_motion', 'on') }}"
+      delay_off: "00:02:00"

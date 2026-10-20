@@ -1,0 +1,9 @@
+start_tvmodus:
+  name: Start Time
+  has_time: true
+  has_date: false
+
+end_tvmodus:
+  name: End Time
+  has_time: true
+  has_date: false

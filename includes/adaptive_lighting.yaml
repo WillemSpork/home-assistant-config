@@ -1,88 +1,89 @@
+#     _       _             _   _               _ _       _     _   _
+#    / \   __| | __ _ _ __ | |_(_)_   _____   | (_) __ _| |__ | |_(_)_ __   __ _
+#   / _ \ / _` |/ _` | '_ \| __| \ \ / / _ \  | | |/ _` | '_ \| __| | '_ \ / _` |
+#  / ___ \ (_| | (_| | |_) | |_| |\ V /  __/  | | | (_| | | | | |_| | | | | (_| |
+# /_/   \_\__,_|\__,_| .__/ \__|_| \_/ \___|  |_|_|\__, |_| |_|\__|_|_| |_|\__, |
+#                    |_|                           |___/                    |___/
+#
+# Adaptive Lighting: https://github.com/basnijholt/adaptive-lighting
+#
+# Gedeelde instellingen staan maar één keer in dit bestand, als YAML-anker:
+#   &basis      -> geldt voor alle zones (gedefinieerd bij Living room)
+#   &handmatig  -> basis + tijdelijk respecteren van eigen aanpassingen
+#                  (gedefinieerd bij Hallway)
+# Met "<<: *naam" neemt een zone die instellingen over. Wat je daarna nog in
+# de zone zelf zet, gaat voor (zoals min_brightness bij Hallway en Wardrobe).
+#
+# Niet ingesteld = standaardwaarde van Adaptive Lighting, onder meer:
+#   - kleurtemperatuur 2000-5500 K, wit via de witte leds (prefer_rgb_color uit)
+#   - helderheid volgt de zon (brightness_mode: default), max. 100%
+#   - echte zonsopgang en zonsondergang
+#   - take_over_control aan, tenzij hieronder anders
+#   - de slaapmodus neemt ook handmatig ingestelde lampen over
+
+# --- Woonkamer en kantoor --------------------------------------------------
+# Adaptive Lighting wint hier altijd: eigen aanpassingen worden bij de
+# volgende update (binnen een minuut) weer overschreven.
+
 - name: Living room
   lights:
     - light.plafondlamp
     - light.convectorput
     - light.sfeerlamp_woonkamer
     - light.hue_color_lamp_1
-  min_brightness: 30
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  separate_turn_on_commands: true
-  skip_redundant_commands: true
-  # interval: 20
-  # transition: 5
-  autoreset_control_seconds: 0
-  adapt_only_on_bare_turn_on: true
+  <<: &basis
+    min_brightness: 30
+    interval: 60
+    transition: 30
+    skip_redundant_commands: true
+    separate_turn_on_commands: true
+    # Slaapmodus: diep oranjerood via RGB, want de witte leds van Hue
+    # kunnen niet warmer dan 2000 K.
+    sleep_rgb_or_color_temp: rgb_color
+    sleep_rgb_color: [255, 56, 0]
+    sleep_brightness: 1
+    sleep_transition: 10
   take_over_control: false
-  sleep_brightness: 1
-  sleep_color_temp: 1000
-  sleep_transition: 2
 
 - name: Office
   lights:
     - light.kantoor
-  min_brightness: 30
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  separate_turn_on_commands: true
-  skip_redundant_commands: true
-  interval: 20
-  transition: 5
-  autoreset_control_seconds: 300
-  adapt_only_on_bare_turn_on: true
+  <<: *basis
   take_over_control: false
-  sleep_brightness: 1
   initial_transition: 0
+
+# --- Overige zones --------------------------------------------------------
+# Pas je zelf de helderheid of de kleur aan, dan pauzeert Adaptive Lighting
+# alleen dat onderdeel, en na 5 minuten neemt hij het weer over.
+# Alleen aanpassingen via Home Assistant tellen als handmatig; wijzigingen
+# via de Hue-app of Hue-schakelaars niet (detect_non_ha_changes staat uit).
 
 - name: Hallway
   lights:
     - light.gang
+  <<: &handmatig
+    <<: *basis
+    take_over_control_mode: pause_changed
+    autoreset_control_seconds: 300
+    adapt_only_on_bare_turn_on: true
   min_brightness: 15
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  separate_turn_on_commands: true
-  skip_redundant_commands: true
-  interval: 20
-  transition: 5
-  autoreset_control_seconds: 300
-  adapt_only_on_bare_turn_on: true
+  # 's Nachts net genoeg licht om veilig te lopen
+  sleep_brightness: 5
 
 - name: Kitchen
   lights:
     - light.keuken
-  min_brightness: 30
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  separate_turn_on_commands: true
-  skip_redundant_commands: true
-  interval: 20
-  transition: 5
-  autoreset_control_seconds: 300
-  adapt_only_on_bare_turn_on: true
+  <<: *handmatig
 
 - name: Bedroom
   lights:
     - light.slaapkamer_lampen
-  min_brightness: 30
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  separate_turn_on_commands: true
-  skip_redundant_commands: true
-  interval: 20
-  transition: 5
-  autoreset_control_seconds: 300
-  adapt_only_on_bare_turn_on: true
+  <<: *handmatig
 
-# Will never out this instance to sleep mode
+# Altijd fel genoeg om kleuren goed te kunnen zien.
+# Doet wel mee met de slaapmodus (zie automations/sleep_mode.yaml).
 - name: Wardrobe
   lights:
     - light.inloopkast_lampen
+  <<: *handmatig
   min_brightness: 80
-  prefer_rgb_color: true
-  detect_non_ha_changes: true
-  separate_turn_on_commands: true
-  skip_redundant_commands: true
-  interval: 20
-  transition: 5
-  autoreset_control_seconds: 300
-  adapt_only_on_bare_turn_on: true

@@ -250,7 +250,7 @@
   actions:
     - action: light.turn_on
       target:
-        entity_id: light.inloopkast
+        entity_id: light.inloopkast_lampen
 
 - alias: "Lights: turn off when motion detected in the wardrobe"
   triggers:
@@ -260,7 +260,7 @@
   actions:
     - action: light.turn_off
       target:
-        entity_id: light.inloopkast
+        entity_id: light.inloopkast_lampen
 #   ____           _
 #  |  _ \         | |
 #  | |_) | ___  __| |_ __ ___   ___  _ __ ___

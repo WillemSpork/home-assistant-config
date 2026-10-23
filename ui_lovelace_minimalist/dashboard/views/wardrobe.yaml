@@ -43,7 +43,7 @@ cards:
       cards:
       - type: "custom:button-card"
         template: card_light
-        entity: light.inloopkast
+        entity: light.inloopkast_lampen
         variables:
           ulm_card_light_enable_slider: true
           ulm_card_light_enable_color: true
